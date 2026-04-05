@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetScan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+  .nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background-color: #eab308; /* yellow-500 */
+    transition: width 0.3s ease;
+  }
+
+  /* hover */
+  .nav-link:hover {
+    color: #eab308;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* ACTIVE */
+  .nav-link.active {
+    color: #eab308;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            nunito: ['Nunito', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white font-nunito scroll-smooth">
+  <div class="w-full">
+
+      <!-- NAVBAR -->
+      <nav class="w-full fixed top-0 left-0 z-50 bg-white backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8">
+            <span class="text-2xl font-extrabold tracking-wide text-gray-900">PetScan</span>
+          </div>
+          <ul class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
+            <li>
+              <a href="#"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Beranda
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('detect') }}"class=" nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Cek Kulit
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('info') }}"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Wikipet
+              </a>
+            </li>
+            <li>
+              <a href="#about"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Tentang
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- HERO SECTION -->
+      <section class="h-screen relative bg-white pt-20 pb-20 overflow-hidden opacity-0 translate-y-10 transition-all duration-700 section-animate">
+         
+        <!-- Shape kuning -->
+        <div class="absolute top-0 right-0 w-[50%] h-[60%] bg-yellow-400 rounded-bl-[200px] z-0"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 items-center gap-10 relative z-10">
+
+          <!-- PAW BACKGROUND -->
+          <div class="absolute inset-0 pointer-events-none">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[10%] left-[8%] w-5 opacity-5 rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[30%] left-[25%] w-6 opacity-5 -rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[60%] left-[15%] w-4 opacity-5 rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[20%] right-[10%] w-5 opacity-5 -rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[50%] right-[20%] w-6 opacity-5 rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[15%] left-[30%] w-5 opacity-5 -rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] right-[10%] w-4 opacity-5 rotate-12">
+
+          </div>
+
+          <!-- LEFT -->
+          <div>
+            <!-- <p class="text-sm text-gray-500 mb-2">SMART PET HEALTH</p> -->
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+              Deteksi Penyakit Kulit pada Hewan dengan AI
+            </h1>
+            <p class="text-gray-600 mb-6">
+              Unggah foto kucing atau anjingmu dan dapatkan hasil deteksi instan menggunakan computer vision
+            </p>
+            <a href="{{ url_for('detect') }}" class="inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full shadow hover:bg-yellow-500 transition">
+              Coba Sekarang
+            </a>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="flex justify-center md:justify-end">
+            <img src="{{ url_for('static', filename='img/pet.png') }}" class="w-[280px] md:w-[380px] lg:w-[420px] h-auto object-contain">
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="h-screen bg-blue-50 py-24 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+        <!-- PAW BACKGROUND -->
+          <div class="absolute inset-0 pointer-events-none">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[10%] left-[8%] w-5 opacity-5 rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[30%] left-[25%] w-6 opacity-5 -rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[60%] left-[15%] w-4 opacity-5 rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[20%] right-[10%] w-5 opacity-5 -rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[50%] right-[20%] w-6 opacity-5 rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[15%] left-[30%] w-5 opacity-5 -rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] right-[10%] w-4 opacity-5 rotate-12">
+
+          </div>
+
+        <div class="max-w-6xl mx-auto px-6 text-center">
+
+          <!-- TITLE -->
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Cara Kerjanya
+          </h2>
+          <p class="text-gray-500 mb-16">
+            Kenali kondisi hewan peliharaanmu dalam 4 langkah mudah
+          </p>
+
+          <!-- STEPS -->
+          <div class="grid md:grid-cols-4 gap-10">
+            <!-- STEP 1 -->
+            <div class="group">
+              <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
+                <span class="text-3xl">🐶</span>
+                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                  1
+                </div>
+              </div>
+
+              <h3 class="font-semibold text-lg text-gray-900 mb-2">
+                Pilih Jenis Hewan
+              </h3>
+              <p class="text-gray-500 text-sm">
+                Tentukan apakah hewan peliharaanmu kucing atau anjing
+              </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="group">
+              <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
+                <span class="text-3xl">📸</span>
+                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                  2
+                </div>
+              </div>
+              <h3 class="font-semibold text-lg text-gray-900 mb-2">
+                Unggah Foto
+              </h3>
+              <p class="text-gray-500 text-sm">
+                Ambil foto yang jelas pada bagian yang terinfeksi
+              </p>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="group">
+              <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
+                <span class="text-3xl">🤖</span>
+                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                  3
+                </div>
+              </div>
+              <h3 class="font-semibold text-lg text-gray-900 mb-2">
+                Analisis AI
+              </h3>
+              <p class="text-gray-500 text-sm">
+                AI kami akan menganalisis kondisi hewanmu secara instan
+              </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="group">
+              <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
+                <span class="text-3xl">📋</span>
+                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                  4
+                </div>
+              </div>
+              <h3 class="font-semibold text-lg text-gray-900 mb-2">
+                Lihat Hasil
+              </h3>
+              <p class="text-gray-500 text-sm">
+                Dapatkan hasil deteksi beserta rekomendasi perawatan
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section class="relative py-24 bg-[#f8fbff] overflow-hidden opacity-0 translate-y-10 transition-all duration-700 section-animate">
+
+        <!-- PAW BACKGROUND -->
+          <div class="absolute inset-0 pointer-events-none">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[10%] left-[8%] w-5 opacity-5 rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[30%] left-[25%] w-6 opacity-5 -rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[60%] left-[15%] w-4 opacity-5 rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[20%] right-[10%] w-5 opacity-5 -rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[50%] right-[20%] w-6 opacity-5 rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[15%] left-[30%] w-5 opacity-5 -rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] right-[10%] w-4 opacity-5 rotate-12">
+
+          </div>
+          
+        <!-- dekorasi -->
+        <img src="{{ url_for('static', filename='img/pet3.png') }}"class="absolute bottom-0 left-0 w-[150px] opacity-85 z-0">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+
+          <!-- Title -->
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-12 text-center">
+            Apa yang Kami Deteksi?
+          </h2>
+
+          <!-- Cards -->
+      <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-8">
+
+        <!-- Card 1 -->
+        <div class="bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
+          
+          <div class="h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
+            <img src="{{ url_for('static', filename='img/ringworm.jpg') }}"class="w-full h-full object-cover">
+          </div>
+
+          <h3 class="text-lg font-bold mb-2">Ringworm</h3>
+          <p class="text-gray-600 text-sm mb-3">
+            Infeksi jamur umum yang menyerang kulit kucing dan anjing.
+          </p>
+
+          <span class="text-xs font-semibold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full">
+            Terdeteksi AI
+          </span>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
+          
+          <div class="h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
+            <img src="{{ url_for('static', filename='img/scabies.gif') }}"class="w-full h-full object-cover">
+          </div>
+
+          <h3 class="text-lg font-bold mb-2">Scabies (Mange pada Anjing)</h3>
+          <p class="text-gray-600 text-sm mb-3">
+            Penyakit kulit yang disebabkan oleh tungau, menimbulkan rasa gatal dan iritasi.
+          </p>
+
+          <span class="text-xs font-semibold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full">
+            Terdeteksi AI
+          </span>
+        </div>
+
+      </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 4 -->
+      <section class="relative py-24 bg-blue-100 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+      <!-- PAW BACKGROUND -->
+          <div class="absolute inset-0 pointer-events-none">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[10%] left-[8%] w-5 opacity-10 rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[30%] left-[25%] w-6 opacity-5 -rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[60%] left-[15%] w-4 opacity-10 rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[20%] right-[10%] w-5 opacity-10 -rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[50%] right-[20%] w-6 opacity-10 rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[15%] left-[30%] w-5 opacity-10 -rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] right-[10%] w-4 opacity-10 rotate-12">
+
+          </div>
+
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-5 items-center gap-2 md:gap-6">
+
+        <!-- LEFT -->
+        <div class="col-span-2">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight max-w-md">
+            Pelajari Kesehatan Kulit Hewan Peliharaanmu
+          </h2>
+
+          <p class="text-gray-600 mt-4 text-base max-w-sm">
+            Temukan berbagai penyakit kulit umum pada kucing dan anjing, termasuk gejala, penyebab, dan tips pencegahannya.
+          </p>
+
+          <a href="{{ url_for('info') }}"
+            class="inline-block mt-6 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full shadow-md transition duration-300 hover:-translate-y-1">
+            Jelajahi Wikipet
+          </a>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-span-3 relative flex justify-center md:justify-end">
+
+          <!-- FILL KUNING -->
+          <div class="absolute w-[460px] h-[280px] bg-yellow-300"
+              style="border-radius: 50% / 35%;">
+          </div>
+
+          <!-- OUTLINE PUTIH -->
+          <div class="absolute w-[460px] h-[280px]
+                      border-2 border-white
+                      translate-x-2 translate-y-2"
+              style="border-radius: 50% / 35%;">
+          </div>
+
+          <!-- OUTLINE KUNING -->
+          <div class="absolute w-[460px] h-[280px]
+                      border-2 border-yellow-400"
+              style="border-radius: 50% / 35%;">
+          </div>
+
+          <!-- IMAGE -->
+          <div class="relative w-[460px] h-[280px]
+                      flex items-center justify-center
+                      overflow-hidden"
+              style="border-radius: 50% / 35%;">
+
+            <img src="{{ url_for('static', filename='img/catdog.png') }}"
+              class="w-full h-full object-cover
+                    transition duration-300 hover:scale-105">
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+      <!-- ABOUT -->
+      <section id="about" class="bg-[#eef5fb] py-24 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+        <!-- PAW BACKGROUND -->
+          <div class="absolute inset-0 pointer-events-none">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[10%] left-[8%] w-5 opacity-5 rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[30%] left-[25%] w-6 opacity-5 -rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[60%] left-[15%] w-4 opacity-5 rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[20%] right-[10%] w-5 opacity-5 -rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[50%] right-[20%] w-6 opacity-5 rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[15%] left-[30%] w-5 opacity-5 -rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] right-[10%] w-4 opacity-5 rotate-12">
+
+          </div>
+        
+        <div class="max-w-4xl mx-auto px-6">
+
+          <!-- CARD -->
+          <div class="relative bg-white shadow-lg p-10 md:p-14 overflow-hidden">
+            <!-- BACKGROUND IMAGE -->
+            <img src="{{ url_for('static', filename='img/about.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover opacity-10">
+
+            <!-- CONTENT -->
+            <div class="relative z-10 text-center">
+              <h2 class="text-3xl md:text-4xl font-bold text-yellow-700 mb-6">
+                Tentang PetScan
+              </h2>
+              <p class="text-gray-600 leading-relaxed mb-4">
+              PetScan adalah platform berbasis AI yang dirancang untuk membantu pemilik hewan peliharaan mendeteksi penyakit kulit pada kucing dan anjing dengan cepat. Cukup dengan mengunggah foto, sistem kami akan menganalisis kondisi kulit menggunakan teknologi computer vision canggih.</p> <p class="text-gray-600 leading-relaxed mb-4"> Kami bertujuan memberikan informasi yang cepat, mudah diakses, dan terpercaya sehingga kamu bisa merawat kesehatan hewan peliharaanmu tanpa menunda.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="bg-white border-t relative overflow-hidden">
+        <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
+        <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
+
+          <!-- GRID -->
+          <div class="grid md:grid-cols-4 gap-10">
+
+            <!-- 1. BRAND -->
+            <div class="text-left">
+              <div class="flex items-center gap-3 mb-3">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" 
+                    class="h-8 w-auto object-contain">
+                <h3 class="text-lg font-bold text-gray-900">PetScan</h3>
+              </div>
+              <p class="text-gray-500 text-sm">Deteksi Kulit Hewan Instan dengan AI.</p>
+            </div>
+
+            <!-- 2. INFO -->
+            <div class="text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
+                <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
+                <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
+                <p class="text-gray-500 text-sm">Ringworm & Scabies</p>
+            </div>
+
+            <!-- 3. MENU -->
+            <div class="text-right md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Navigasi</h4>
+              <div class="flex flex-col gap-2 text-gray-600 text-sm">
+                <a href="#" class="hover:text-yellow-500 transition">Beranda</a>
+                <a href="{{ url_for('detect') }}" class="hover:text-yellow-500 transition">Cek Kulit</a>
+                <a href="{{ url_for('info') }}" class="hover:text-yellow-500 transition">Wikipet</a>
+                <a href="#about" class="hover:text-yellow-500 transition">Tentang</a>
+              </div>
+            </div>
+
+            <!-- 4. TECHNOLOGY -->
+            <div class="text-center md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Teknologi</h4>
+              <p class="text-gray-500 text-sm mb-2">YOLOv8 Nano</p>
+              <p class="text-gray-500 text-sm">Computer Vision Based Detection</p>
+            </div>
+          </div>
+
+          <!-- BOTTOM -->
+          <div class="border-t mt-10 pt-6 text-center text-gray-400 text-sm">
+            © 2026 PetScan. Fatima's Project.
+          </div>
+        </div>
+
+        <img src="{{ url_for('static', filename='img/footer.png') }}"class="absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
+      </footer>
+
+      <!-- Smooth Scroll -->
+      <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const sections = document.querySelectorAll(".section-animate");
+
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove("opacity-0", "translate-y-10");
+              entry.target.classList.add("opacity-100", "translate-y-0");
+            }
+          });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => observer.observe(section));
+      });
+      </script>
+      <script>
+        const links = document.querySelectorAll(".nav-link");
+        const currentPath = window.location.pathname;
+
+        links.forEach(link => {
+          const url = new URL(link.href);
+
+          // ❗ skip anchor (#about)
+          if (url.hash) return;
+
+          if (url.pathname === currentPath) {
+            link.classList.add("active");
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>

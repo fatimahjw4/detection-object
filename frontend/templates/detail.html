@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Penyakit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+        theme: {
+            extend: {
+            fontFamily: {
+                nunito: ['Nunito', 'sans-serif'],
+            }
+            }
+        }
+        }
+    </script>
+
+    <style>
+    .gradient-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+
+    .card-hover {
+    position: relative;
+    transition: all 0.3s ease;
+    }
+
+    .card-hover::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(245,158,11,0.3));
+    border-radius: 1rem;
+    opacity: 0;
+    transition: 0.3s;
+    z-index: -1;
+    }
+
+    .card-hover:hover::before {
+    opacity: 1;
+    }
+
+    .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 25px -5px rgba(59,130,246,0.1);
+    }
+
+    .icon-wrapper {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    background: rgba(59,130,246,0.08);
+    border-radius: 0.75rem;
+    transition: .3s;
+    }
+
+    .card-hover:hover .icon-wrapper {
+    background: rgba(59,130,246,0.15);
+    transform: scale(1.1);
+    }
+    
+    .section-badge {
+    display:inline-block;
+    padding:4px 10px;
+    background: rgba(59,130,246,0.1);
+    border:1px solid rgba(59,130,246,0.2);
+    border-radius:9999px;
+    font-size:12px;
+    font-weight:600;
+    color:#3b82f6;
+    margin-bottom:10px;
+    }
+    </style>
+</head>
+<body class="font-nunito scroll-smooth">
+    <!-- NAVBAR -->
+      <nav class="w-full fixed top-0 left-0 z-50 bg-white backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8">
+            <span class="text-2xl font-extrabold tracking-wide text-gray-900">PetScan</span>
+          </div>
+          <ul class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
+            <li>
+              <a href="{{ url_for('index') }}"
+                class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Beranda
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('detect') }}"class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Cek Kulit
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('info') }}"
+                class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Wikipet
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('index') }}#about"
+                class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Tentang
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+        <!-- DETAIL PAGE -->
+        <section class="min-h-screen bg-gradient-to-br from-blue-50 via-amber-50 to-blue-50 py-16 px-4 pt-24">
+        <div class="max-w-5xl mx-auto space-y-10">
+
+            <!-- HEADER -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
+
+              <!-- LEFT -->
+              <div class="flex-1">
+
+                <div class="section-badge">Panduan Kesehatan Hewan</div>
+
+                <h1 class="text-5xl font-bold gradient-text mb-1">
+                  {{ data.emoji }} {{ data.nama }}
+                </h1>
+
+                <p class="text-lg text-gray-600 mb-3">({{ data.alias }})</p>
+
+                <!-- ✅ HASIL DETEKSI (RAPI DI BAWAH JUDUL) -->
+                {% if from_detect %}
+                <div class="mt-4 bg-yellow-50 border border-blue-200 rounded-xl px-4 py-3 flex items-center gap-3 shadow-sm w-fit">
+
+                  <div class="text-xl">🧪</div>
+
+                  <div class="text-sm text-yellow-800">
+                    <span class="font-medium">Hasil deteksi:</span>
+                    <span class="font-bold">{{ data.nama }}</span>
+                    <span class="text-yellow-600 font-bold">({{ confidence }}%)</span>
+                  </div>
+                </div>
+                {% endif %}
+
+                  {% if from_detect %}
+                  <p class="mt-2 text-xs text-gray-500 italic leading-relaxed pl-1">
+                    *Hasil ini hanya untuk deteksi awal dan tidak menggantikan diagnosis dokter hewan.
+                  </p>
+                  {% endif %}
+                  
+
+                <!-- breadcrumb -->
+                <p class="text-sm text-gray-500 mt-4">
+                  <a href="{{ url_for('info') }}" class="hover:text-blue-600 hover:underline transition">
+                    Kembali
+                  </a> 
+                  / 
+                  <span class="text-yellow-600 font-semibold">{{ data.nama }}</span>
+                </p>
+
+              </div>
+
+              <!-- RIGHT IMAGE -->
+              <div class="relative group shrink-0">
+                <div class="absolute -inset-2 bg-gradient-to-br from-blue-400 to-amber-300 rounded-xl blur opacity-0 group-hover:opacity-60 transition"></div>
+
+                <img 
+                  src="{{ url_for('static', filename='img/' + data.gambar) }}"
+                  class="relative w-44 h-36 object-cover rounded-xl shadow-lg"
+                >
+              </div>
+
+            </div>
+
+            <!-- OVERVIEW -->
+            <div class="card-hover bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+            <p class="text-gray-700 leading-relaxed mb-4">
+            <span class="font-bold text-blue-600">{{ data.nama }}</span> {{ data.deskripsi }}
+            </p>
+
+            <div class="flex flex-wrap gap-3 text-xs font-semibold">
+            {% for tag in data.tags %}
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full">{{ tag }}</span>
+            {% endfor %}
+            </div>
+
+            </div>
+
+            <!-- GRID -->
+            <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- GEJALA -->
+            <div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
+                <div class="text-center mb-4">
+                <div class="section-badge">Gejala</div>
+                <h2 class="text-base font-bold">Tanda & Gejala</h2>
+                </div>
+
+                <div class="flex justify-between items-start gap-4">
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 leading-snug">
+                    {% for item in data.gejala %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-yellow-50 text-xl">
+                    ⚠️
+                </div>
+                </div>
+            </div>
+
+            <!-- PENYEBAB -->
+            <div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
+                <div class="text-center mb-4">
+                <div class="section-badge">Penyebab</div>
+                <h2 class="text-base font-bold">Penyebab</h2>
+                </div>
+
+                <div class="flex justify-between items-start gap-4">
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 leading-snug">
+                    {% for item in data.penyebab %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 text-xl">
+                    🧫
+                </div>
+                </div>
+            </div>
+
+            <!-- PENULARAN -->
+            <div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
+                <div class="text-center mb-4">
+                <div class="section-badge">Penularan</div>
+                <h2 class="text-base font-bold">Cara Menyebar</h2>
+                </div>
+
+                <div class="flex justify-between items-start gap-4">
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 leading-snug">
+                    {% for item in data.penularan %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-red-50 text-xl">
+                    🔄
+                </div>
+                </div>
+            </div>
+
+            <!-- PENCEGAHAN -->
+            <div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
+                <div class="text-center mb-4">
+                <div class="section-badge">Pencegahan</div>
+                <h2 class="text-base font-bold">Pencegahan</h2>
+                </div>
+
+                <div class="flex justify-between items-start gap-4">
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 leading-snug">
+                    {% for item in data.pencegahan %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-green-50 text-xl">
+                    🛡️
+                </div>
+                </div>
+            </div>
+
+            <!-- MEDIS -->
+            <div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
+                <div class="text-center mb-4">
+                <div class="section-badge">Medis</div>
+                <h2 class="text-base font-bold">Kapan ke Dokter?</h2>
+                </div>
+
+                <div class="flex justify-between items-start gap-4">
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 leading-snug">
+                    {% for item in data.medis %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-purple-50 text-xl">
+                    🏥
+                </div>
+                </div>
+            </div>
+
+            <!-- PENGOBATAN -->
+            <div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
+                <div class="text-center mb-4">
+                <div class="section-badge">Pengobatan</div>
+                <h2 class="text-base font-bold">Perawatan</h2>
+                </div>
+
+                <div class="flex justify-between items-start gap-4">
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 leading-snug">
+                    {% for item in data.pengobatan %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 text-xl">
+                    💊
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t relative overflow-hidden">
+      <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
+      <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
+        <!-- GRID -->
+        <div class="grid md:grid-cols-4 gap-10">
+
+            <!-- 1. BRAND -->
+            <div class="text-left">
+              <div class="flex items-center gap-3 mb-3">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" 
+                    class="h-8 w-auto object-contain">
+                <h3 class="text-lg font-bold text-gray-900">PetScan</h3>
+              </div>
+              <p class="text-gray-500 text-sm">Deteksi Kulit Hewan Instan dengan AI.</p>
+            </div>
+
+            <!-- 2. INFO -->
+            <div class="text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
+                <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
+                <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
+                <p class="text-gray-500 text-sm">Ringworm & Scabies</p>
+            </div>
+
+            <!-- 3. MENU -->
+            <div class="text-right md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Navigasi</h4>
+              <div class="flex flex-col gap-2 text-gray-600 text-sm">
+                <a href="{{ url_for('index') }}" class="hover:text-yellow-500 transition">Beranda</a>
+                <a href="{{ url_for('detect') }}" class="hover:text-yellow-500 transition">Cek Kulit</a>
+                <a href="#" class="hover:text-yellow-500 transition">Wikipet</a>
+                <a href="{{ url_for('index') }}#about" class="hover:text-yellow-500 transition">Tentang</a>
+              </div>
+            </div>
+
+            <!-- 4. TECHNOLOGY -->
+            <div class="text-center md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Teknologi</h4>
+              <p class="text-gray-500 text-sm mb-2">YOLOv8 Nano</p>
+              <p class="text-gray-500 text-sm">Computer Vision Based Detection</p>
+            </div>
+          </div>
+
+          <!-- BOTTOM -->
+          <div class="border-t mt-10 pt-6 text-center text-gray-400 text-sm">
+            © 2026 PetScan. Fatima's Project.
+          </div>
+        </div>
+
+      <img src="{{ url_for('static', filename='img/footer.png') }}"class="absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
+    </footer>
+  </div>
+</section>
+
+</body>
+</html>

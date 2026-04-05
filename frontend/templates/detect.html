@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Hewan Peliharaanmu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-color: #eab308; /* yellow-500 */
+      transition: width 0.3s ease;
+    }
+
+    /* hover */
+    .nav-link:hover {
+      color: #eab308;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* ACTIVE */
+    .nav-link.active {
+      color: #eab308;
+    }
+
+    .nav-link.active::after {
+      width: 100%;
+    }
+    </style>
+    <script>
+        tailwind.config = {
+        theme: {
+            extend: {
+            fontFamily: {
+                nunito: ['Nunito', 'sans-serif'],
+            }
+            }
+        }
+        }
+    </script>
+</head>
+
+<body class="font-nunito scroll-smooth">
+    <!-- NAVBAR -->
+      <nav class="w-full fixed top-0 left-0 z-50 bg-white backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8">
+            <span class="text-2xl font-extrabold tracking-wide text-gray-900">PetScan</span>
+          </div>
+          <ul class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
+            <li>
+              <a href="{{ url_for('index') }}"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Beranda
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Cek Kulit
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('info') }}"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Wikipet
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('index') }}#about"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Tentang
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- ================= SELECT PET (TETAP) ================= -->
+    <section id="selectPet" class="min-h-screen bg-[#f8fbff] flex items-center pt-28 pb-20 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+      <!-- PAW BACKGROUND -->
+          <div class="absolute inset-0 pointer-events-none">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] left-[8%] w-5 opacity-5 rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[30%] left-[25%] w-6 opacity-5 -rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[60%] left-[15%] w-4 opacity-5 rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[20%] right-[10%] w-5 opacity-5 -rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] right-[10%] w-4 opacity-5 rotate-12">
+
+          </div>
+      
+      <div class="max-w-5xl mx-auto px-6 w-full">
+
+        <!-- Title -->
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
+            Pilih Jenis Hewan
+          </h2>
+          <p class="text-gray-600 max-w-xl mx-auto">
+            Tidak yakin apa yang terjadi pada kulit hewan peliharaanmu? <br> 
+            Unggah foto dan biarkan AI kami membantu mengidentifikasi kemungkinan kondisinya secara instan.
+          </p>
+        </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+      <!-- CAT -->
+      <button onclick="choosePet('cat')" class="bg-white rounded-2xl shadow-sm hover:shadow-md p-8 text-center transition 
+      hover:-translate-y-1 border border-gray-100 group hover:bg-[#fff9e6] hover:border-yellow-400 active:bg-[#fff4cc]">
+        <div class="flex justify-center mb-6">
+          <img src="{{ url_for('static', filename='img/pet2.png') }}"
+              class="w-32 h-32 object-contain group-hover:scale-105 transition">
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-yellow-600">
+          Kucing
+        </h3>
+        <p class="text-sm text-gray-500">
+          Analisis kondisi kulit kucingmu
+        </p>
+      </button>
+
+      <!-- DOG -->
+      <button onclick="choosePet('dog')" class="bg-white rounded-2xl shadow-sm hover:shadow-md p-8 text-center transition 
+      hover:-translate-y-1 border border-gray-100 group hover:bg-[#fff9e6] hover:border-yellow-400 active:bg-[#fff4cc]">
+        <div class="flex justify-center mb-6">
+          <img src="{{ url_for('static', filename='img/dog.png') }}"
+              class="w-32 h-32 object-contain group-hover:scale-105 transition">
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-yellow-600">
+          Anjing
+        </h3>
+        <p class="text-sm text-gray-500">
+          Analisis kondisi kulit anjingmu
+        </p>
+      </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= UPLOAD SECTION (BARU) ================= -->
+  <section id="uploadSection" class="hidden min-h-screen bg-[#f8fbff] flex items-center pt-28 pb-20">
+    <!-- PAW BACKGROUND -->
+          <div class="absolute inset-0 pointer-events-none">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[10%] left-[8%] w-5 opacity-5 rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[30%] left-[25%] w-6 opacity-5 -rotate-6">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[60%] left-[15%] w-4 opacity-5 rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute top-[20%] right-[10%] w-5 opacity-5 -rotate-12">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[15%] left-[30%] w-5 opacity-5 -rotate-45">
+
+            <img src="https://pngimg.com/uploads/paw/paw_PNG48.png"
+              class="absolute bottom-[10%] right-[10%] w-4 opacity-5 rotate-12">
+
+          </div>
+    <div class="max-w-3xl mx-auto px-6 w-full">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-2">
+          Unggah Foto
+        </h2>
+        <p class="text-gray-600">
+          Unggah atau ambil foto kulit hewan peliharaanmu
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+
+  <button onclick="goBack()" class="mb-6 text-sm text-gray-500 hover:text-yellow-500 transition">
+    ← Kembali
+  </button>
+
+  <!-- ================= BEFORE ================= -->
+  <div id="beforeState">
+
+    <!-- Upload -->
+    <label id="uploadBox" for="imageInput"
+      class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-10 cursor-pointer hover:border-yellow-400 hover:bg-[#fff9e6] transition">
+      <p class="text-gray-600 font-medium">
+        Klik untuk mengunggah atau gunakan kamera
+      </p>
+      <input id="imageInput" type="file" class="hidden" accept="image/*" capture="environment">
+    </label>
+
+    <!-- Preview -->
+    <div class="mt-6 flex flex-col items-center">
+      <div class="relative inline-block">
+        <img id="preview" class="hidden max-h-[300px] w-auto object-contain rounded-xl border"/>
+        <canvas id="canvas" class="absolute top-0 left-0"></canvas>
+      </div>
+
+      <button id="changeBtn" onclick="resetUpload()"
+        class="hidden mt-3 text-sm text-gray-500 hover:text-yellow-500">
+        Ubah Gambar
+      </button>
+    </div>
+
+    <!-- Button -->
+    <button id="analyzeBtn" onclick="analyzeImage()"
+      class="mt-6 w-full font-bold bg-yellow-400 hover:bg-yellow-500 text-white py-3 rounded-xl">
+      Analisis Gambar
+    </button>
+
+  </div>
+
+  <!-- ================= AFTER ================= -->
+  <div id="afterState" class="hidden">
+
+    <div class="grid md:grid-cols-2 gap-6 items-start">
+
+      <!-- LEFT (image + bbox tetap dari canvas lama) -->
+      <div class="bg-white rounded-2xl border p-4 shadow-sm">
+        <div class="relative">
+          <img id="resultImage" class="w-full max-h-[450px] object-contain rounded-xl"/>
+          <canvas id="resultCanvas" class="absolute top-0 left-0"></canvas>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="bg-white rounded-2xl border p-6 shadow-sm text-left">
+        <p class="text-sm font-bold text-gray-500">Hasil Deteksi</p>
+
+        <div id="resultLabel"
+          class="mt-2 inline-block px-3 py-1 rounded-full text-sm font-semibold">
+        </div>
+
+        <p class="mt-3 text-gray-700">
+          Confidence:
+          <span id="resultConfidence" class="font-bold"></span>
+        </p>
+
+        <p id="resultDesc"
+          class="mt-4 text-gray-600 text-sm leading-relaxed">
+        </p>
+
+        <a id="readMoreBtn"
+          href="#"
+          class="mt-5 inline-block text-sm font-semibold text-yellow-600 hover:text-yellow-700 transition">
+          Baca selengkapnya →
+        </a>
+      </div>
+
+    </div>
+
+    <!-- tombol bawah -->
+    <button onclick="resetUpload()"
+      class="mt-6 w-full border border-gray-300 py-3 rounded-xl text-gray-700 hover:bg-yellow-100">
+      Ubah Gambar
+    </button>
+
+  </div>
+
+  <!-- Loading -->
+  <p id="loading" class="mt-3 text-gray-500 hidden text-center">
+    Menganalisis...
+  </p>
+
+  <!-- (result lama tetep ada biar ga error, tapi ga dipake) -->
+  <div id="result" class="hidden"></div>
+
+</div>
+      
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+    <footer class="bg-white border-t relative overflow-hidden">
+      <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
+      <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
+        <!-- GRID -->
+        <div class="grid md:grid-cols-4 gap-10">
+
+            <!-- 1. BRAND -->
+            <div class="text-left">
+              <div class="flex items-center gap-3 mb-3">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" 
+                    class="h-8 w-auto object-contain">
+                <h3 class="text-lg font-bold text-gray-900">PetScan</h3>
+              </div>
+              <p class="text-gray-500 text-sm">Deteksi Kulit Hewan Instan dengan AI.</p>
+            </div>
+
+            <!-- 2. INFO -->
+            <div class="text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
+                <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
+                <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
+                <p class="text-gray-500 text-sm">Ringworm & Scabies</p>
+            </div>
+
+            <!-- 3. MENU -->
+            <div class="text-right md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Navigasi</h4>
+              <div class="flex flex-col gap-2 text-gray-600 text-sm">
+                <a href="{{ url_for('index') }}" class="hover:text-yellow-500 transition">Beranda</a>
+                <a href="#" class="hover:text-yellow-500 transition">Cek Kulit</a>
+                <a href="{{ url_for('info') }}" class="hover:text-yellow-500 transition">Wikipet</a>
+                <a href="{{ url_for('index') }}#about" class="hover:text-yellow-500 transition">Tentang</a>
+              </div>
+            </div>
+
+            <!-- 4. TECHNOLOGY -->
+            <div class="text-center md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Teknologi</h4>
+              <p class="text-gray-500 text-sm mb-2">YOLOv8 Nano</p>
+              <p class="text-gray-500 text-sm">Computer Vision Based Detection</p>
+            </div>
+          </div>
+
+          <!-- BOTTOM -->
+          <div class="border-t mt-10 pt-6 text-center text-gray-400 text-sm">
+            © 2026 PetScan. Fatima's Project.
+          </div>
+        </div>
+
+      <img src="{{ url_for('static', filename='img/footer.png') }}"class="absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
+    </footer>
+
+    <!-- LOGIC -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Smooth Scroll -->
+      <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const sections = document.querySelectorAll(".section-animate");
+
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove("opacity-0", "translate-y-10");
+              entry.target.classList.add("opacity-100", "translate-y-0");
+            }
+          });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => observer.observe(section));
+      });
+      </script>
+
+      <script>
+        const links = document.querySelectorAll(".nav-link");
+        const currentPath = window.location.pathname;
+
+        links.forEach(link => {
+          const url = new URL(link.href);
+
+          // ❗ skip anchor (#about)
+          if (url.hash) return;
+
+          if (url.pathname === currentPath) {
+            link.classList.add("active");
+          }
+        });
+      </script>
+</body>
+</html>

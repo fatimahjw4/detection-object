@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikiPet</title>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- PRECONNECT (biar font lebih cepat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- TAILWIND CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-color: #eab308; /* yellow-500 */
+      transition: width 0.3s ease;
+    }
+
+    /* hover */
+    .nav-link:hover {
+      color: #eab308;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* ACTIVE */
+    .nav-link.active {
+      color: #eab308;
+    }
+
+    .nav-link.active::after {
+      width: 100%;
+    }
+    </style>
+
+    <script>
+        tailwind.config = {
+        theme: {
+            extend: {
+            fontFamily: {
+                nunito: ['Nunito', 'sans-serif'],
+            }
+            }
+        }
+        }
+    </script>
+</head>
+<body class="bg-blue-50 font-nunito scroll-smooth">
+    <!-- NAVBAR -->
+      <nav class="w-full fixed top-0 left-0 z-50 bg-white backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8">
+            <span class="text-2xl font-extrabold tracking-wide text-gray-900">PetScan</span>
+          </div>
+          <ul class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
+            <li>
+              <a href="{{ url_for('index') }}"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Beranda
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('detect') }}"class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Cek Kulit
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Wikipet
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('index') }}#about"
+                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
+                Tentang
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+      
+        <section class="relative h-[420px] md:h-[480px] flex items-center justify-center text-center opacity-0 translate-y-10 transition-all duration-700 section-animate">
+
+        <!-- BG -->
+        <img 
+            src="{{ url_for('static', filename='img/wikipet.jpg') }}"
+            loading="lazy"
+            class="absolute inset-0 w-full h-full object-cover object-[center_25%]">
+
+        <!-- OVERLAY -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+
+        <!-- CONTENT -->
+        <div class="relative z-10 px-6 max-w-2xl">
+
+            <!-- BADGE -->
+            <div class="inline-block bg-yellow-400/90 text-gray-900 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+            🐾 Panduan Kesehatan Hewan
+            </div>
+
+            <!-- TITLE -->
+            <h1 class="text-4xl md:text-4xl font-bold text-white leading-tight">
+            Informasi Penyakit Kulit Pada Hewan
+            </h1>
+
+            <!-- SUBTEXT -->
+            <p class="text-white/80 mt-3 text-sm md:text-base">
+            Pelajari tentang penyakit kulit umum pada kucing dan anjing, termasuk gejala, penyebab, dan cara pencegahannya.
+            </p>
+        </div>
+        </section>
+
+        <!-- FLOATING STATS -->
+        <div class="relative z-20 -mt-12 mb-10 px-6">
+        <div class="max-w-4xl mx-auto flex flex-wrap justify-center gap-4">
+
+            <!-- CARD 1 -->
+            <div class="bg-white backdrop-blur-md rounded-xl shadow-sm border border-white/40 px-6 py-4 text-center 
+                        hover:bg-yellow-100/80 hover:border-yellow-400 
+                        hover:-translate-y-1 hover:shadow-md 
+                        transition duration-300 cursor-pointer">
+            <div class="text-2xl mb-2">🦠</div>
+            <p class="text-sm font-medium text-gray-800">Info Penyakit Kulit</p>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="bg-white backdrop-blur-md rounded-xl shadow-sm border border-white/40 px-6 py-4 text-center 
+                        hover:bg-blue-100/80 hover:border-blue-400 
+                        hover:-translate-y-1 hover:shadow-md 
+                        transition duration-300 cursor-pointer">
+            <div class="text-2xl mb-2">🐶🐱</div>
+            <p class="text-sm font-medium text-gray-800">Kucing & Anjing</p>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="bg-white backdrop-blur-md rounded-xl shadow-sm border border-white/40 px-6 py-4 text-center 
+                        hover:bg-green-100/80 hover:border-green-400 
+                        hover:-translate-y-1 hover:shadow-md 
+                        transition duration-300 cursor-pointer">
+            <div class="text-2xl mb-2">⚡</div>
+            <p class="text-sm font-medium text-gray-800">Deteksi Cepat</p>
+            </div>
+
+        </div>
+        </div>
+
+
+        <!-- CONTENT -->
+        <section class="bg-blue-50 -mt-20 pt-24 pb-16 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+
+            <!-- LEFT: DISEASE LIST -->
+            <div class="md:col-span-2 space-y-6">
+
+            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition space-y-4">
+                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                🦠 Penyakit Kulit Umum
+                </h3>
+
+                <!-- CONTENT 1 -->
+                <!-- CARD -->
+                <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group">
+                <!-- IMAGE -->
+                <img 
+                    src="{{ url_for('static', filename='img/info.jpg') }}" loading="lazy"
+                    class="w-20 h-20 rounded-lg object-cover"
+                >
+                <div class="flex-1">
+                    <h4 class="font-semibold text-gray-800 group-hover:text-yellow-600 transition">
+                    Ringworm (Dermatofitosis)
+                    </h4>
+
+                    <p class="text-sm text-gray-600 mt-1">
+                    Infeksi jamur yang memakan keratin pada kulit dan bulu, menyebabkan pitak berbentuk lingkaran kemerahan.
+                    </p>
+
+                    <a href="{{ url_for('detail', nama='ringworm') }}" class="text-blue-600 text-sm mt-3 inline-block hover:underline">
+                    Baca Selengkapnya →
+                    </a>
+                </div>
+                </div>
+
+                <!-- CONTENT 2 -->
+                <!-- CARD -->
+                <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group">
+                <!-- IMAGE -->
+                <img 
+                    src="{{ url_for('static', filename='img/scabies.gif') }}" loading="lazy"
+                    class="w-20 h-20 rounded-lg object-cover"
+                >
+                <div class="flex-1">
+                    <h4 class="font-semibold text-gray-800 group-hover:text-yellow-600 transition">
+                     Scabies (Kudis Sarcoptic)
+                    </h4>
+                    <p class="text-sm text-gray-600 mt-1">
+                    Disebabkan oleh tungau Sarcoptes scabiei yang menggali lapisan kulit dan menimbulkan gatal hebat.
+                    </p>
+                    <a href="{{ url_for('detail', nama='scabies') }}" class="text-blue-600 text-sm mt-3 inline-block hover:underline">
+                    Baca Selengkapnya →
+                    </a>
+                </div>
+                </div>
+
+                <!-- CONTENT 3 -->
+                <!-- CARD -->
+                <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group">
+                <!-- IMAGE -->
+                <img 
+                    src="{{ url_for('static', filename='img/malassezia.jpg') }}" loading="lazy"
+                    class="w-20 h-20 rounded-lg object-cover"
+                >
+                <div class="flex-1">
+                    <h4 class="font-semibold text-gray-800 group-hover:text-yellow-600 transition">
+                    Jamur Malassezia (Yeast Infection)
+                    </h4>
+                    <p class="text-sm text-gray-600 mt-1">
+                    Infeksi jamur ragi akibat kondisi kulit lembap atau alergi, ditandai bau apek dan kulit menghitam.
+                    </p>
+                    <a href="{{ url_for('detail', nama='malassezia') }}" class="text-blue-600 text-sm mt-3 inline-block hover:underline">
+                    Baca Selengkapnya →
+                    </a>
+                </div>
+                </div>
+
+                <!-- CONTENT 4 -->
+                <!-- CARD -->
+                <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group">
+                <!-- IMAGE -->
+                <img 
+                    src="{{ url_for('static', filename='img/dermatitis.jpg') }}" loading="lazy"
+                    class="w-20 h-20 rounded-lg object-cover"
+                >
+                <div class="flex-1">
+                    <h4 class="font-semibold text-gray-800 group-hover:text-yellow-600 transition">
+                    Dermatitis Alergi Pinjal
+                    </h4>
+                    <p class="text-sm text-gray-600 mt-1">
+                    Reaksi alergi terhadap air liur kutu yang menyebabkan bintik merah dan gatal di area tertentu.
+                    </p>
+                    <a href="{{ url_for('detail', nama='flea_allergy') }}" class="text-blue-600 text-sm mt-3 inline-block hover:underline">
+                    Baca Selengkapnya →
+                    </a>
+                </div>
+                </div>
+
+            </div>
+
+            </div>
+
+            <!-- RIGHT: ARTICLES -->
+            <div class="space-y-6">
+
+            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition">
+                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                📰 Artikel Terbaru
+                </h3>
+
+                <div class="space-y-4">
+
+                <!-- ITEM 1 -->
+                <div class="flex gap-3 items-center border-b pb-3 hover:bg-gray-50 p-2 rounded-lg transition">
+                    <img 
+                    src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1" loading="lazy"
+                    class="w-12 h-12 rounded-md object-cover"
+                    >
+                    <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                        Mengenali Gejala Penyakit Kulit pada Anjing
+                    </p>
+                    <a href="https://www.petmd.com/dog/conditions/skin/skin-infections-dogs" target="_blank" class="text-blue-600 text-xs hover:underline">
+                        Baca Selengkapnya →
+                    </a>
+                    </div>
+                </div>
+
+                <!-- ITEM 2-->
+                <div class="flex gap-3 items-center hover:bg-gray-50 p-2 rounded-lg transition">
+                    <img 
+                    src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6" loading="lazy"
+                    class="w-12 h-12 rounded-md object-cover"
+                    >
+                    <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                        Cara Mencegah Scabies pada Kucing
+                    </p>
+                    <a href="https://vcahospitals.com/know-your-pet/mange-sarcoptic-mange-in-cats" target="_blank" class="text-blue-600 text-xs hover:underline">
+                        Baca Selengkapnya →
+                    </a>
+                    </div>
+                </div>
+
+                <!-- ITEM 3 -->
+                <div class="flex gap-3 items-center border-b pb-3 hover:bg-gray-50 p-2 rounded-lg transition">
+                    <img 
+                    src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b" loading="lazy"
+                    class="w-12 h-12 rounded-md object-cover"
+                    >
+                    <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                        Penyebab Ringworm pada Kucing dan Anjing
+                    </p>
+                    <a href="https://www.cdc.gov/ringworm/about/index.html" target="_blank" class="text-blue-600 text-xs hover:underline">
+                        Baca Selengkapnya →
+                    </a>
+                    </div>
+                </div>
+
+                <!-- ITEM 4-->
+                <!-- <div class="flex gap-3 items-center border-b pb-3 hover:bg-gray-50 p-2 rounded-lg transition">
+                    <img 
+                    src="https://images.unsplash.com/photo-1558788353-f76d92427f16" loading="lazy"
+                    class="w-12 h-12 rounded-md object-cover"
+                    >
+                    <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                        Tips Menjaga Kesehatan Kulit Hewan Peliharaan
+                    </p>
+                    <a href="https://www.hillspet.com/dog-care/healthcare/dog-skin-care" target="_blank" class="text-blue-600 text-xs hover:underline">
+                        Baca Selengkapnya →
+                    </a>
+                    </div>
+                </div> -->
+
+                <!-- ITEM -->
+                <!-- <div class="flex gap-3 items-center hover:bg-gray-50 p-2 rounded-lg transition">
+                    <img 
+                    src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee" loading="lazy"
+                    class="w-12 h-12 rounded-md object-cover"
+                    >
+                    <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                        Nutrisi Terbaik untuk Kesehatan Kulit Hewan
+                    </p>
+                    <a href="https://www.petmd.com/dog/nutrition/importance-fatty-acids-dogs" target="_blank" class="text-blue-600 text-xs hover:underline">
+                        Baca Selengkapnya →
+                    </a>
+                    </div>
+                </div> -->
+            </div>
+            </div>
+            </div>
+        </div>
+        </section>
+
+      <!-- FOOTER -->
+    <footer class="bg-white border-t relative overflow-hidden">
+      <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
+      <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
+        <!-- GRID -->
+        <div class="grid md:grid-cols-4 gap-10">
+
+            <!-- 1. BRAND -->
+            <div class="text-left">
+              <div class="flex items-center gap-3 mb-3">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" 
+                    class="h-8 w-auto object-contain">
+                <h3 class="text-lg font-bold text-gray-900">PetScan</h3>
+              </div>
+              <p class="text-gray-500 text-sm">Deteksi Kulit Hewan Instan dengan AI.</p>
+            </div>
+
+            <!-- 2. INFO -->
+            <div class="text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
+                <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
+                <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
+                <p class="text-gray-500 text-sm">Ringworm & Scabies</p>
+            </div>
+
+            <!-- 3. MENU -->
+            <div class="text-right md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Navigasi</h4>
+              <div class="flex flex-col gap-2 text-gray-600 text-sm">
+                <a href="{{ url_for('index') }}" class="hover:text-yellow-500 transition">Beranda</a>
+                <a href="{{ url_for('detect') }}" class="hover:text-yellow-500 transition">Cek Kulit</a>
+                <a href="#" class="hover:text-yellow-500 transition">Wikipet</a>
+                <a href="{{ url_for('index') }}#about" class="hover:text-yellow-500 transition">Tentang</a>
+              </div>
+            </div>
+
+            <!-- 4. TECHNOLOGY -->
+            <div class="text-center md:text-left">
+              <h4 class="font-semibold text-gray-900 mb-3">Teknologi</h4>
+              <p class="text-gray-500 text-sm mb-2">YOLOv8 Nano</p>
+              <p class="text-gray-500 text-sm">Computer Vision Based Detection</p>
+            </div>
+          </div>
+
+          <!-- BOTTOM -->
+          <div class="border-t mt-10 pt-6 text-center text-gray-400 text-sm">
+            © 2026 PetScan. Fatima's Project.
+          </div>
+        </div>
+
+      <img src="{{ url_for('static', filename='img/footer.png') }}"class="absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
+    </footer>
+
+    <!-- Smooth Scroll -->
+      <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const sections = document.querySelectorAll(".section-animate");
+
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove("opacity-0", "translate-y-10");
+              entry.target.classList.add("opacity-100", "translate-y-0");
+            }
+          });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => observer.observe(section));
+      });
+      </script>
+
+      <script>
+      const links = document.querySelectorAll(".nav-link");
+      const currentPath = window.location.pathname;
+
+      links.forEach(link => {
+        const url = new URL(link.href);
+
+        // ❗ skip anchor (#about)
+        if (url.hash) return;
+
+        if (url.pathname === currentPath) {
+          link.classList.add("active");
+        }
+      });
+    </script>
+</body>
+</html>
