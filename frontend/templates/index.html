@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
   <style>
   .nav-link {
     position: relative;
@@ -47,6 +48,8 @@
   }
   </style>
 
+  
+
   <script>
     tailwind.config = {
       theme: {
@@ -63,45 +66,63 @@
   <div class="w-full">
 
       <!-- NAVBAR -->
-      <nav class="w-full fixed top-0 left-0 z-50 bg-white backdrop-blur-md shadow-sm">
+      <nav class="w-full fixed top-0 left-0 z-50 bg-white shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+          <!-- LOGO -->
           <div class="flex items-center gap-2">
             <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8">
-            <span class="text-2xl font-extrabold tracking-wide text-gray-900">PetScan</span>
+            <span class="text-2xl font-extrabold text-gray-900">PetScan</span>
           </div>
+
+          <!-- MENU DESKTOP -->
           <ul class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
-            <li>
-              <a href="#"
-                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Beranda
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('detect') }}"class=" nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Cek Kulit
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('info') }}"
-                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Wikipet
-              </a>
-            </li>
-            <li>
-              <a href="#about"
-                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Tentang
-              </a>
-            </li>
+            <li><a href="#" class="nav-link">Beranda</a></li>
+            <li><a href="{{ url_for('detect') }}" class="nav-link">Cek Kulit</a></li>
+            <li><a href="{{ url_for('info') }}" class="nav-link">Wikipet</a></li>
+            <li><a href="#about" class="nav-link">Tentang</a></li>
           </ul>
+
+          <!-- HAMBURGER -->
+          <button id="menuBtn" class="md:hidden text-2xl">
+            ☰
+          </button>
+
         </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="hidden px-6 pb-4 bg-white md:hidden flex flex-col gap-2">
+          <div class="border-b border-gray-100">
+            <a href="#" class="nav-link inline-block py-3">Beranda</a>
+          </div>
+
+          <div class="border-b border-gray-100">
+            <a href="{{ url_for('detect') }}" class="nav-link inline-block py-3">
+              Cek Kulit
+            </a>
+          </div>
+
+          <div class="border-b border-gray-100">
+            <a href="{{ url_for('info') }}" class="nav-link inline-block py-3">
+              Wikipet
+            </a>
+          </div>
+
+          <div>
+            <a href="#about" class="nav-link inline-block py-3">
+              Tentang
+            </a>
+          </div>
+        </div>
+
       </nav>
+
 
       <!-- HERO SECTION -->
       <section class="h-screen relative bg-white pt-20 pb-20 overflow-hidden opacity-0 translate-y-10 transition-all duration-700 section-animate">
          
         <!-- Shape kuning -->
-        <div class="absolute top-0 right-0 w-[50%] h-[60%] bg-yellow-400 rounded-bl-[200px] z-0"></div>
+        <div class="absolute top-0 right-0 w-[100%] md:w-[50%] h-[250px] md:h-[60%] bg-yellow-400 rounded-bl-[120px] md:rounded-bl-[200px] z-0"></div>
         
         <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 items-center gap-10 relative z-10">
 
@@ -131,29 +152,33 @@
 
           </div>
 
-          <!-- LEFT -->
-          <div>
-            <!-- <p class="text-sm text-gray-500 mb-2">SMART PET HEALTH</p> -->
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+          <!-- RIGHT (GAMBAR JADI ATAS DI MOBILE) -->
+          <div class="flex justify-center md:justify-end order-1 md:order-2">
+            <img src="{{ url_for('static', filename='img/pet.png') }}"
+              class="w-[240px] sm:w-[280px] md:w-[380px] lg:w-[420px] h-auto object-contain">
+          </div>
+
+          <!-- LEFT (TEXT JADI BAWAH DI MOBILE) -->
+          <div class="text-center md:text-left order-2 md:order-1">
+            <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
               Deteksi Penyakit Kulit pada Hewan dengan AI
             </h1>
-            <p class="text-gray-600 mb-6">
+
+            <p class="text-gray-600 mb-6 text-sm sm:text-base">
               Unggah foto kucing atau anjingmu dan dapatkan hasil deteksi instan menggunakan computer vision
             </p>
-            <a href="{{ url_for('detect') }}" class="inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full shadow hover:bg-yellow-500 transition">
+
+            <a href="{{ url_for('detect') }}"
+              class="inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full shadow hover:bg-yellow-500 transition">
               Coba Sekarang
             </a>
           </div>
 
-          <!-- RIGHT -->
-          <div class="flex justify-center md:justify-end">
-            <img src="{{ url_for('static', filename='img/pet.png') }}" class="w-[280px] md:w-[380px] lg:w-[420px] h-auto object-contain">
-          </div>
         </div>
       </section>
 
       <!-- HOW IT WORKS -->
-      <section class="h-screen bg-blue-50 py-24 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+      <section class="how-it-works bg-blue-50 opacity-0 translate-y-10 transition-all duration-700 section-animate">
         <!-- PAW BACKGROUND -->
           <div class="absolute inset-0 pointer-events-none">
 
@@ -190,13 +215,14 @@
             Kenali kondisi hewan peliharaanmu dalam 4 langkah mudah
           </p>
 
-          <!-- STEPS -->
-          <div class="grid md:grid-cols-4 gap-10">
+          <!-- GRID -->
+          <div class="steps-grid">
+
             <!-- STEP 1 -->
-            <div class="group">
+            <div class="step-card">
               <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
-                <span class="text-3xl">🐶</span>
-                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                <span class="step-icon text-3xl">🐶</span>
+                <div class="step-number absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
                   1
                 </div>
               </div>
@@ -210,10 +236,10 @@
             </div>
 
             <!-- STEP 2 -->
-            <div class="group">
+            <div class="step-card">
               <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
-                <span class="text-3xl">📸</span>
-                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                <span class="step-icon text-3xl">📸</span>
+                <div class="step-number absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
                   2
                 </div>
               </div>
@@ -226,10 +252,10 @@
             </div>
 
             <!-- STEP 3 -->
-            <div class="group">
+            <div class="step-card">
               <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
-                <span class="text-3xl">🤖</span>
-                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                <span class="step-icon text-3xl">🤖</span>
+                <div class="step-number absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
                   3
                 </div>
               </div>
@@ -242,10 +268,10 @@
             </div>
 
             <!-- STEP 4 -->
-            <div class="group">
+            <div class="step-card">
               <div class="relative w-24 h-24 mx-auto mb-6 bg-yellow-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition">
-                <span class="text-3xl">📋</span>
-                <div class="absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
+                <span class="step-icon text-3xl">📋</span>
+                <div class="step-number absolute -top-3 -right-3 bg-yellow-400 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold">
                   4
                 </div>
               </div>
@@ -541,6 +567,16 @@
         sections.forEach(section => observer.observe(section));
       });
       </script>
+
+      <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+      </script>
+
       <script>
         const links = document.querySelectorAll(".nav-link");
         const currentPath = window.location.pathname;
