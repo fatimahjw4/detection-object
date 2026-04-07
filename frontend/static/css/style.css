@@ -1,4 +1,4 @@
-/* SECTION */
+/* SECTION 2 */
 .how-it-works {
   position: relative;
   background: #eff6ff; /* bg-blue-50 */
@@ -83,6 +83,19 @@
 }
 
 /* ========================= */
+/* SECTION 3 (DETECT) */
+/* ========================= */
+
+/* optional hover biar konsisten sama section 2 */
+.detect-card {
+  transition: all 0.3s ease;
+}
+
+.detect-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ========================= */
 /* 📱 MOBILE RESPONSIVE */
 /* ========================= */
 
@@ -118,6 +131,135 @@
     font-size: 12px;
   }
 
+   /* section padding */
+  .detect-section {
+    padding: 70px 20px;
+  }
+
+  /* title */
+  .detect-section h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  /* grid jadi 1 kolom (override tailwind) */
+  .detect-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  /* card lebih kecil */
+  .detect-card {
+    padding: 16px;
+  }
+
+  /* image */
+  .detect-image {
+    height: 140px;
+  }
+
+  /* dekorasi kiri bawah biar ga ganggu */
+  .detect-decor {
+    width: 90px;
+    opacity: 0.4;
+  }
+
+  .pet-section {
+    padding: 70px 20px;
+    text-align: center;
+  }
+
+  /* ubah grid jadi flex column */
+  .pet-container {
+    display: flex !important;
+    flex-direction: column-reverse; /* ⬅️ ini kunci (gambar jadi di atas) */
+    align-items: center;
+    gap: 40px;
+  }
+
+  /* TEXT */
+  .pet-text {
+    max-width: 500px;
+    margin-top: 20px;
+  }
+
+  .pet-text h2 {
+    font-size: 24px;
+    line-height: 1.3;
+    margin: 0 auto;
+  }
+
+  .pet-text p {
+    font-size: 14px;
+  }
+
+  /* IMAGE WRAPPER */
+  .pet-image {
+    width: 100%;
+    justify-content: center !important;
+  }
+
+  /* semua shape oval dikecilin */
+  .pet-image > div {
+    width: 300px !important;
+    height: 180px !important;
+  }
+
+  /* image */
+  .pet-image img {
+    object-fit: cover;
+  }
+
+  /* grid jadi 1 kolom */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px;
+    text-align: center;
+  }
+
+  /* semua kolom jadi center */
+  .footer-grid > div {
+    text-align: center !important;
+  }
+
+  /* brand tengah */
+  .footer-brand {
+    align-items: center;
+  }
+
+  .footer-brand .flex {
+    justify-content: center;
+  }
+
+  /* menu link biar lebih rapi */
+  .footer-grid a {
+    display: inline-block;
+  }
+
+  /* spacing bawah */
+  footer .border-t {
+    margin-top: 30px;
+  }
+
+  /* dekorasi jangan ganggu */
+  .footer-decor {
+    width: 90px;
+    opacity: 0.3;
+  }
+
+  /* ========================= */
+  /* SECTION WIKIPET */
+  /* ========================= */
+  .info-section {
+    padding: 70px 20px;
+  }
+
+  /* grid jadi 1 kolom */
+  .info-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
 }
 
 /* ========================= */
@@ -128,6 +270,27 @@
 
   .steps-grid {
     grid-template-columns: 1fr;
+  }
+
+  .detect-section {
+    padding: 60px 16px;
+  }
+
+  .detect-image {
+    height: 120px;
+  }
+
+  .pet-image > div {
+    width: 250px !important;
+    height: 150px !important;
+  }
+
+  .pet-text h2 {
+    font-size: 20px;
+  }
+
+  footer {
+    padding-bottom: 60px; /* biar ga ketutup dekor */
   }
 
 }

@@ -48,8 +48,6 @@
   }
   </style>
 
-  
-
   <script>
     tailwind.config = {
       theme: {
@@ -287,7 +285,7 @@
       </section>
 
       <!-- SECTION 3 -->
-      <section class="relative py-24 bg-[#f8fbff] overflow-hidden opacity-0 translate-y-10 transition-all duration-700 section-animate">
+      <section class="detect-section relative py-24 bg-[#f8fbff] overflow-hidden opacity-0 translate-y-10 transition-all duration-700 section-animate">
 
         <!-- PAW BACKGROUND -->
           <div class="absolute inset-0 pointer-events-none">
@@ -316,7 +314,7 @@
           </div>
           
         <!-- dekorasi -->
-        <img src="{{ url_for('static', filename='img/pet3.png') }}"class="absolute bottom-0 left-0 w-[150px] opacity-85 z-0">
+        <img src="{{ url_for('static', filename='img/pet3.png') }}" class="detect-decor absolute bottom-0 left-0 w-[150px] opacity-85 z-0">
         <div class="max-w-6xl mx-auto px-6 relative z-10">
 
           <!-- Title -->
@@ -325,12 +323,12 @@
           </h2>
 
           <!-- Cards -->
-      <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-8">
+      <div class="detect-grid max-w-3xl mx-auto grid md:grid-cols-2 gap-8">
 
         <!-- Card 1 -->
-        <div class="bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
+        <div class="detect-card bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
           
-          <div class="h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
+          <div class="detect-image h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
             <img src="{{ url_for('static', filename='img/ringworm.jpg') }}"class="w-full h-full object-cover">
           </div>
 
@@ -345,9 +343,9 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
+        <div class="detect-grid bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
           
-          <div class="h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
+          <div class="detect-image h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
             <img src="{{ url_for('static', filename='img/scabies.gif') }}"class="w-full h-full object-cover">
           </div>
 
@@ -367,7 +365,7 @@
       </section>
 
       <!-- SECTION 4 -->
-      <section class="relative py-24 bg-blue-100 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+      <section class="pet-section relative py-24 bg-blue-100 opacity-0 translate-y-10 transition-all duration-700 section-animate">
       <!-- PAW BACKGROUND -->
           <div class="absolute inset-0 pointer-events-none">
 
@@ -394,10 +392,10 @@
 
           </div>
 
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-5 items-center gap-2 md:gap-6">
+        <div class="pet-container max-w-6xl mx-auto px-6 grid md:grid-cols-5 items-center gap-2 md:gap-6">
 
         <!-- LEFT -->
-        <div class="col-span-2">
+        <div class="pet-text col-span-2">
           <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight max-w-md">
             Pelajari Kesehatan Kulit Hewan Peliharaanmu
           </h2>
@@ -413,7 +411,7 @@
         </div>
 
         <!-- RIGHT -->
-        <div class="col-span-3 relative flex justify-center md:justify-end">
+        <div class="pet-image col-span-3 relative flex justify-center md:justify-end">
 
           <!-- FILL KUNING -->
           <div class="absolute w-[460px] h-[280px] bg-yellow-300"
@@ -502,10 +500,10 @@
         <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
 
           <!-- GRID -->
-          <div class="grid md:grid-cols-4 gap-10">
+          <div class="footer-grid grid md:grid-cols-4 gap-10">
 
             <!-- 1. BRAND -->
-            <div class="text-left">
+            <div class="footer-brand text-left">
               <div class="flex items-center gap-3 mb-3">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" 
                     class="h-8 w-auto object-contain">
@@ -515,7 +513,7 @@
             </div>
 
             <!-- 2. INFO -->
-            <div class="text-left">
+            <div class="footer-brand text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
                 <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
                 <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
@@ -523,7 +521,7 @@
             </div>
 
             <!-- 3. MENU -->
-            <div class="text-right md:text-left">
+            <div class="footer-brand text-right md:text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Navigasi</h4>
               <div class="flex flex-col gap-2 text-gray-600 text-sm">
                 <a href="#" class="hover:text-yellow-500 transition">Beranda</a>
@@ -534,7 +532,7 @@
             </div>
 
             <!-- 4. TECHNOLOGY -->
-            <div class="text-center md:text-left">
+            <div class="footer-brand text-center md:text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Teknologi</h4>
               <p class="text-gray-500 text-sm mb-2">YOLOv8 Nano</p>
               <p class="text-gray-500 text-sm">Computer Vision Based Detection</p>
@@ -547,7 +545,7 @@
           </div>
         </div>
 
-        <img src="{{ url_for('static', filename='img/footer.png') }}"class="absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
+        <img src="{{ url_for('static', filename='img/footer.png') }}"class="footer-decor absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
       </footer>
 
       <!-- Smooth Scroll -->
@@ -592,6 +590,5 @@
           }
         });
       </script>
-    </div>
   </body>
 </html>

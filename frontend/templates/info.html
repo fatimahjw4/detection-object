@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
     <!-- TAILWIND CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -66,38 +68,55 @@
 </head>
 <body class="bg-blue-50 font-nunito scroll-smooth">
     <!-- NAVBAR -->
-      <nav class="w-full fixed top-0 left-0 z-50 bg-white backdrop-blur-md shadow-sm">
+      <nav class="w-full fixed top-0 left-0 z-50 bg-white shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+          <!-- LOGO -->
           <div class="flex items-center gap-2">
             <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8">
-            <span class="text-2xl font-extrabold tracking-wide text-gray-900">PetScan</span>
+            <span class="text-2xl font-extrabold text-gray-900">PetScan</span>
           </div>
+
+          <!-- MENU DESKTOP -->
           <ul class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
-            <li>
-              <a href="{{ url_for('index') }}"
-                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Beranda
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('detect') }}"class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Cek Kulit
-              </a>
-            </li>
-            <li>
-              <a href="#"
-                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Wikipet
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('index') }}#about"
-                class="nav-link relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Tentang
-              </a>
-            </li>
+            <li><a href="{{ url_for('index') }}" class="nav-link">Beranda</a></li>
+            <li><a href="{{ url_for('detect') }}" class="nav-link">Cek Kulit</a></li>
+            <li><a href="#" class="nav-link">Wikipet</a></li>
+            <li><a href="{{ url_for('index') }}#about" class="nav-link">Tentang</a></li>
           </ul>
+
+          <!-- HAMBURGER -->
+          <button id="menuBtn" class="md:hidden text-2xl">
+            ☰
+          </button>
+
         </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="hidden px-6 pb-4 bg-white md:hidden flex flex-col gap-2">
+          <div class="border-b border-gray-100">
+            <a href="{{ url_for('index') }}" class="nav-link inline-block py-3">Beranda</a>
+          </div>
+
+          <div class="border-b border-gray-100">
+            <a href="{{ url_for('detect') }}" class="nav-link inline-block py-3">
+              Cek Kulit
+            </a>
+          </div>
+
+          <div class="border-b border-gray-100">
+            <a href="#" class="nav-link inline-block py-3">
+              Wikipet
+            </a>
+          </div>
+
+          <div>
+            <a href="{{ url_for('index') }}#about" class="nav-link inline-block py-3">
+              Tentang
+            </a>
+          </div>
+        </div>
+
       </nav>
       
       
@@ -168,9 +187,9 @@
 
 
         <!-- CONTENT -->
-        <section class="bg-blue-50 -mt-20 pt-24 pb-16 opacity-0 translate-y-10 transition-all duration-700 section-animate">
+        <section class="info-section bg-blue-50 -mt-20 pt-24 pb-16 opacity-0 translate-y-10 transition-all duration-700 section-animate">
 
-        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+        <div class="info-grid max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
 
             <!-- LEFT: DISEASE LIST -->
             <div class="md:col-span-2 space-y-6">
@@ -327,38 +346,6 @@
                     </a>
                     </div>
                 </div>
-
-                <!-- ITEM 4-->
-                <!-- <div class="flex gap-3 items-center border-b pb-3 hover:bg-gray-50 p-2 rounded-lg transition">
-                    <img 
-                    src="https://images.unsplash.com/photo-1558788353-f76d92427f16" loading="lazy"
-                    class="w-12 h-12 rounded-md object-cover"
-                    >
-                    <div class="flex-1">
-                    <p class="text-sm text-gray-700">
-                        Tips Menjaga Kesehatan Kulit Hewan Peliharaan
-                    </p>
-                    <a href="https://www.hillspet.com/dog-care/healthcare/dog-skin-care" target="_blank" class="text-blue-600 text-xs hover:underline">
-                        Baca Selengkapnya →
-                    </a>
-                    </div>
-                </div> -->
-
-                <!-- ITEM -->
-                <!-- <div class="flex gap-3 items-center hover:bg-gray-50 p-2 rounded-lg transition">
-                    <img 
-                    src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee" loading="lazy"
-                    class="w-12 h-12 rounded-md object-cover"
-                    >
-                    <div class="flex-1">
-                    <p class="text-sm text-gray-700">
-                        Nutrisi Terbaik untuk Kesehatan Kulit Hewan
-                    </p>
-                    <a href="https://www.petmd.com/dog/nutrition/importance-fatty-acids-dogs" target="_blank" class="text-blue-600 text-xs hover:underline">
-                        Baca Selengkapnya →
-                    </a>
-                    </div>
-                </div> -->
             </div>
             </div>
             </div>
@@ -366,14 +353,15 @@
         </section>
 
       <!-- FOOTER -->
-    <footer class="bg-white border-t relative overflow-hidden">
-      <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
-      <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
-        <!-- GRID -->
-        <div class="grid md:grid-cols-4 gap-10">
+      <footer class="bg-white border-t relative overflow-hidden">
+        <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
+        <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
+
+          <!-- GRID -->
+          <div class="footer-grid grid md:grid-cols-4 gap-10">
 
             <!-- 1. BRAND -->
-            <div class="text-left">
+            <div class="footer-brand text-left">
               <div class="flex items-center gap-3 mb-3">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" 
                     class="h-8 w-auto object-contain">
@@ -383,7 +371,7 @@
             </div>
 
             <!-- 2. INFO -->
-            <div class="text-left">
+            <div class="footer-brand text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
                 <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
                 <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
@@ -391,7 +379,7 @@
             </div>
 
             <!-- 3. MENU -->
-            <div class="text-right md:text-left">
+            <div class="footer-brand text-right md:text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Navigasi</h4>
               <div class="flex flex-col gap-2 text-gray-600 text-sm">
                 <a href="{{ url_for('index') }}" class="hover:text-yellow-500 transition">Beranda</a>
@@ -402,7 +390,7 @@
             </div>
 
             <!-- 4. TECHNOLOGY -->
-            <div class="text-center md:text-left">
+            <div class="footer-brand text-center md:text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Teknologi</h4>
               <p class="text-gray-500 text-sm mb-2">YOLOv8 Nano</p>
               <p class="text-gray-500 text-sm">Computer Vision Based Detection</p>
@@ -415,8 +403,8 @@
           </div>
         </div>
 
-      <img src="{{ url_for('static', filename='img/footer.png') }}"class="absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
-    </footer>
+        <img src="{{ url_for('static', filename='img/footer.png') }}"class="footer-decor absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
+      </footer>
 
     <!-- Smooth Scroll -->
       <script>
@@ -434,6 +422,15 @@
 
         sections.forEach(section => observer.observe(section));
       });
+      </script>
+
+      <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
       </script>
 
       <script>
