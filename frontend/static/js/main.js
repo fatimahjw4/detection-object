@@ -106,11 +106,13 @@ window.onload = function () {
       const width = x2 - x1;
       const height = y2 - y1;
 
-      ctx.strokeStyle = "red";
+      const color = getBBoxColor(det.display_label || det.label);
+
+      ctx.strokeStyle = color;
       ctx.lineWidth = 3;
       ctx.strokeRect(x1, y1, width, height);
 
-      ctx.fillStyle = "red";
+      ctx.fillStyle = color;
       ctx.fillRect(x1, y1 - 20, 140, 20);
 
       ctx.fillStyle = "white";
@@ -148,11 +150,13 @@ window.onload = function () {
       const width = x2 - x1;
       const height = y2 - y1;
 
-      rctx.strokeStyle = "red";
+      const color = getBBoxColor(det.display_label || det.label);
+
+      rctx.strokeStyle = color;
       rctx.lineWidth = 3;
       rctx.strokeRect(x1, y1, width, height);
 
-      rctx.fillStyle = "red";
+      rctx.fillStyle = color;
       rctx.fillRect(x1, y1 - 20, 140, 20);
 
       rctx.fillStyle = "white";
@@ -277,6 +281,22 @@ window.onload = function () {
     }
     return "bg-gray-100 text-gray-700";
   }
+
+  function getBBoxColor(label) {
+  if (!label) return "red";
+
+  const lower = label.toLowerCase();
+
+  if (lower.includes("ringworm")) {
+    return "#a855f7"; // ungu
+  }
+
+  if (lower.includes("scabies") || lower.includes("mange")) {
+    return "#ef4444"; // merah
+  }
+
+  return "red"; // default tetep merah kayak sekarang
+}
 
   function getDescription(label) {
     if (label.toLowerCase().includes("ringworm")) {

@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <script>
         tailwind.config = {
         theme: {
@@ -82,37 +83,53 @@
 </head>
 <body class="font-nunito scroll-smooth">
     <!-- NAVBAR -->
-      <nav class="w-full fixed top-0 left-0 z-50 bg-white backdrop-blur-md shadow-sm">
+      <nav class="w-full fixed top-0 left-0 z-50 bg-white shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+          <!-- LOGO -->
           <div class="flex items-center gap-2">
             <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8">
-            <span class="text-2xl font-extrabold tracking-wide text-gray-900">PetScan</span>
+            <span class="text-2xl font-extrabold text-gray-900">PetScan</span>
           </div>
+
+          <!-- MENU DESKTOP -->
           <ul class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
-            <li>
-              <a href="{{ url_for('index') }}"
-                class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Beranda
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('detect') }}"class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Cek Kulit
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('info') }}"
-                class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Wikipet
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('index') }}#about"
-                class="relative transition-all duration-300 hover:text-yellow-500 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-0 after:h-[2px] after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full">
-                Tentang
-              </a>
-            </li>
+            <li><a href="{{ url_for('index') }}" class="nav-link">Beranda</a></li>
+            <li><a href="{{ url_for('detect') }}" class="nav-link">Cek Kulit</a></li>
+            <li><a href="{{ url_for('info') }}" class="nav-link">Wikipet</a></li>
+            <li><a href="{{ url_for('index') }}#about" class="nav-link">Tentang</a></li>
           </ul>
+
+          <!-- HAMBURGER -->
+          <button id="menuBtn" class="md:hidden text-2xl">
+            ☰
+          </button>
+
+        </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="hidden px-6 pb-4 bg-white md:hidden flex flex-col gap-2">
+          <div class="border-b border-gray-100">
+            <a href="{{ url_for('index') }}" class="nav-link inline-block py-3">Beranda</a>
+          </div>
+
+          <div class="border-b border-gray-100">
+            <a href="#" class="nav-link inline-block py-3">
+              Cek Kulit
+            </a>
+          </div>
+
+          <div class="border-b border-gray-100">
+            <a href="{{ url_for('info') }}" class="nav-link inline-block py-3">
+              Wikipet
+            </a>
+          </div>
+
+          <div>
+            <a href="{{ url_for('index') }}#about" class="nav-link inline-block py-3">
+              Tentang
+            </a>
+          </div>
         </div>
       </nav>
 
@@ -121,14 +138,14 @@
         <div class="max-w-5xl mx-auto space-y-10">
 
             <!-- HEADER -->
-            <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
 
               <!-- LEFT -->
-              <div class="flex-1">
+              <div class="flex-1 space-y-3">
 
                 <div class="section-badge">Panduan Kesehatan Hewan</div>
 
-                <h1 class="text-5xl font-bold gradient-text mb-1">
+                <h1 class="text-4xl md:text-5xl font-bold gradient-text">
                   {{ data.emoji }} {{ data.nama }}
                 </h1>
 
@@ -172,7 +189,7 @@
 
                 <img 
                   src="{{ url_for('static', filename='img/' + data.gambar) }}"
-                  class="relative w-44 h-36 object-cover rounded-xl shadow-lg"
+                  class="relative w-full max-w-xs md:max-w-sm lg:max-w-md h-48 md:h-52 lg:h-56 object-cover rounded-2xl shadow-xl mx-auto md:ml-auto group-hover:scale-105 transition duration-500"
                 >
               </div>
 
@@ -319,14 +336,15 @@
         </section>
 
     <!-- FOOTER -->
-    <footer class="bg-white border-t relative overflow-hidden">
-      <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
-      <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
-        <!-- GRID -->
-        <div class="grid md:grid-cols-4 gap-10">
+      <footer class="bg-white border-t relative overflow-hidden">
+        <!-- <div class="absolute top-0 left-0 w-[250px] h-[200px] bg-yellow-400 rounded-br-[150px] opacity-20 z-0"></div> -->
+        <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
+
+          <!-- GRID -->
+          <div class="footer-grid grid md:grid-cols-4 gap-10">
 
             <!-- 1. BRAND -->
-            <div class="text-left">
+            <div class="footer-brand text-left">
               <div class="flex items-center gap-3 mb-3">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" 
                     class="h-8 w-auto object-contain">
@@ -336,7 +354,7 @@
             </div>
 
             <!-- 2. INFO -->
-            <div class="text-left">
+            <div class="footer-brand text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
                 <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
                 <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
@@ -344,18 +362,18 @@
             </div>
 
             <!-- 3. MENU -->
-            <div class="text-right md:text-left">
+            <div class="footer-brand text-right md:text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Navigasi</h4>
               <div class="flex flex-col gap-2 text-gray-600 text-sm">
                 <a href="{{ url_for('index') }}" class="hover:text-yellow-500 transition">Beranda</a>
                 <a href="{{ url_for('detect') }}" class="hover:text-yellow-500 transition">Cek Kulit</a>
-                <a href="#" class="hover:text-yellow-500 transition">Wikipet</a>
+                <a href="{{ url_for('info') }}" class="hover:text-yellow-500 transition">Wikipet</a>
                 <a href="{{ url_for('index') }}#about" class="hover:text-yellow-500 transition">Tentang</a>
               </div>
             </div>
 
             <!-- 4. TECHNOLOGY -->
-            <div class="text-center md:text-left">
+            <div class="footer-brand text-center md:text-left">
               <h4 class="font-semibold text-gray-900 mb-3">Teknologi</h4>
               <p class="text-gray-500 text-sm mb-2">YOLOv8 Nano</p>
               <p class="text-gray-500 text-sm">Computer Vision Based Detection</p>
@@ -368,10 +386,19 @@
           </div>
         </div>
 
-      <img src="{{ url_for('static', filename='img/footer.png') }}"class="absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
-    </footer>
+        <img src="{{ url_for('static', filename='img/footer.png') }}"class="footer-decor absolute bottom-0 right-0 w-[150px] opacity-85 z-0">
+      </footer>
   </div>
 </section>
+
+      <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+      </script>
 
 </body>
 </html>
