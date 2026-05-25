@@ -9,98 +9,98 @@ penyakit_data = {
             "nama": "Ringworm pada Kucing",
             "alias": "Dermatofitosis (Kurap Kucing)",
             "emoji": "🐱🍄",
-            "deskripsi": "Ringworm adalah infeksi jamur superfisial pada kulit, bulu, dan cakar kucing yang paling sering disebabkan oleh jamur Microsporum canis. Jamur ini tidak disebabkan oleh cacing, melainkan hidup dengan memetabolisme protein keratin pada jaringan kulit mati, bulu, dan cakar kucing.",
+            "deskripsi": " adalah infeksi jamur superfisial pada kulit, bulu, dan cakar kucing yang paling sering disebabkan oleh jamur Microsporum canis. Jamur ini tidak disebabkan oleh cacing, melainkan hidup dengan memetabolisme protein keratin pada jaringan kulit mati, bulu, dan cakar kucing.",
 
             "tags": ["🔴 Sangat Menular", "⚠️ Zoonosis Tinggi", "🐱 Kucing", "⏳ Terapi Jangka Panjang"],
 
             "gejala": [
-                "Kebotakan atau pitak melingkar, terutama di area wajah, ujung telinga, kaki, dan ekor",
-                "Kulit kering dan bersisik halus yang tampak mirip abu rokok",
-                "Bulu di sekitar lesi menjadi rapuh, patah, dan sangat mudah rontok",
-                "Kucing berbulu panjang seperti ras Persia sering menjadi pembawa spora tanpa gejala (carrier)",
-                "Cakar menebal, rapuh, mengalami perubahan bentuk atau warna kusam jika kuku terinfeksi"
+                "Pitak melingkar di wajah, telinga, kaki, atau ekor",
+                "Kulit kering, bersisik, dan kemerahan",
+                "Bulu rapuh, patah, dan mudah rontok",
+                "Gatal ringan hingga sedang",
+                "Kuku dapat menebal atau kusam bila terinfeksi"
             ],
 
             "penyebab": [
                 "Infeksi jamur Microsporum canis",
-                "Kondisi lingkungan yang lembap, kotor, atau kebersihan kandang yang buruk",
-                "Sistem kekebalan tubuh yang lemah, terutama pada anak kucing atau kucing stres"
+                "Lingkungan lembap dan kurang bersih",
+                "Daya tahan tubuh lemah, terutama pada anak kucing"
             ],
 
             "penularan": [
-                "Kontak fisik langsung dengan kucing sakit atau carrier",
-                "Kontak tidak langsung melalui kandang, sisir, kasur, karpet, atau sofa",
-                "Dapat menular sangat mudah ke manusia, khususnya anak-anak dan lansia"
+                "Kontak langsung dengan kucing terinfeksi",
+                "Melalui kandang, sisir, alas tidur, atau bulu rontok",
+                "Dapat menular ke manusia"
             ],
 
             "pencegahan": [
-                "Menjaga kebersihan lingkungan rumah dan memastikan sirkulasi udara tidak lembap",
-                "Segera mengisolasi kucing yang sakit selama masa pengobatan",
-                "Membersihkan bulu rontok dengan vakum",
-                "Mendisinfeksi permukaan keras dengan larutan pemutih yang diencerkan"
+                "Menjaga kebersihan lingkungan dan kandang",
+                "Mengisolasi kucing yang terinfeksi",
+                "Membersihkan bulu rontok secara rutin",
+                "Mendisinfeksi perlengkapan kucing"
             ],
 
             "medis": [
-                "Kebotakan menyebar cepat ke area tubuh lain",
-                "Muncul luka terbuka atau bernanah",
-                "Kucing lemas, kehilangan nafsu makan, atau terus menggaruk"
+                "Lesi menyebar ke banyak bagian tubuh",
+                "Muncul luka terbuka atau infeksi sekunder",
+                "Kucing terus menggaruk atau tampak lemas"
             ],
 
             "pengobatan": [
-                "Memandikan kucing dengan lime sulfur dip 2% atau sampo miconazole + chlorhexidine",
-                "Pemberian obat antijamur oral seperti Itraconazole dengan dosis dokter hewan",
-                "Pencukuran bulu pada kasus tertentu",
-                "Terapi harus dilanjutkan sampai hasil pemeriksaan negatif"
+                "Mandi dengan sampo antijamur",
+                "Pemberian obat antijamur oral sesuai resep",
+                "Pencukuran bulu pada area tertentu bila perlu",
+                "Terapi dilanjutkan hingga infeksi benar-benar hilang"
             ],
 
             "gambar": "info.jpg"
+
         },
 
         "anjing": {
             "nama": "Ringworm pada Anjing",
             "alias": "Dermatofitosis (Kurap Anjing)",
             "emoji": "🐶🍄",
-            "deskripsi": "Ringworm adalah infeksi jamur superfisial pada kulit dan bulu anjing yang memicu peradangan pada folikel rambut. Berbeda dengan kucing, anjing hampir selalu menunjukkan gejala klinis yang jelas.",
+            "deskripsi": " adalah infeksi jamur superfisial pada kulit dan bulu anjing yang memicu peradangan pada folikel rambut. Berbeda dengan kucing, anjing hampir selalu menunjukkan gejala klinis yang jelas.",
             "tags": ["🟠 Menular", "⚠️ Zoonosis", "🐶 Anjing", "🔥 Inflamasi Tinggi"],
 
              "gejala": [
-                "Pitak melingkar dengan tepi kemerahan meradang",
-                "Bulu patah tepat di atas permukaan kulit",
-                "Muncul papula atau pustula",
-                "Bekas melingkar dengan pinggiran bersisik",
-                "Gatal bervariasi, bisa berat jika ada infeksi sekunder"
+                "Pitak melingkar kemerahan",
+                "Bulu mudah patah",
+                "Kulit bersisik atau bernanah",
+                "Gatal ringan hingga berat"
             ],
 
-           "penyebab": [
-                "Infeksi dermatofit",
-                "Luka goresan kecil pada kulit",
-                "Usia muda, stres, penyakit penyerta"
+            "penyebab": [
+                "Infeksi jamur dermatofit",
+                "Luka kecil pada kulit",
+                "Stres atau imun lemah"
             ],
 
             "penularan": [
-                "Kontak langsung dengan hewan terinfeksi",
-                "Kontak melalui sisir, handuk, kandang, tempat tidur",
+                "Kontak dengan hewan terinfeksi",
+                "Melalui kandang atau alat grooming",
                 "Dapat menular ke manusia"
             ],
 
             "pencegahan": [
-                "Membersihkan alat grooming rutin",
-                "Mengisolasi anjing terinfeksi",
+                "Membersihkan alat grooming",
+                "Mengisolasi hewan terinfeksi",
                 "Menjaga kandang tetap kering",
-                "Mencuci alas tidur secara berkala"
+                "Mencuci alas tidur rutin"
             ],
 
             "medis": [
-                "Lesi meluas cepat",
-                "Bisul bernanah dalam",
-                "Anjing terus menggaruk atau tampak terganggu"
+                "Lesi menyebar cepat",
+                "Muncul luka bernanah",
+                "Garukan berlebihan"
             ],
 
             "pengobatan": [
-                "Mandi dengan sampo antijamur",
-                "Obat oral seperti Itraconazole / Terbinafine sesuai resep dokter",
-                "Antibiotik jika ada infeksi sekunder",
-                "Pengobatan dilanjutkan sampai hasil evaluasi negatif"
+                "Mandi sampo antijamur",
+                "Obat oral sesuai resep dokter",
+                "Antibiotik bila perlu",
+                "Terapi hingga sembuh total"
             ],
 
             "gambar": "info.jpg"
@@ -114,7 +114,7 @@ penyakit_data = {
         "alias": "Feline Scabies (Kudis Kucing / Kudis Notoedrik)",
         "emoji": "🐱🦠",
 
-        "deskripsi": "Mange pada kucing adalah penyakit kulit parasitik yang disebabkan oleh infestasi tungau mikroskopis. Tungau hidup di permukaan kulit atau menggali terowongan pada lapisan kulit luar sehingga memicu peradangan dan rasa gatal yang sangat hebat.",
+        "deskripsi": "/Mange pada kucing adalah penyakit kulit parasitik yang disebabkan oleh infestasi tungau mikroskopis. Tungau hidup di permukaan kulit atau menggali terowongan pada lapisan kulit luar sehingga memicu peradangan dan rasa gatal yang sangat hebat.",
 
         "tags": [
             "🔴 Sangat Menular",
@@ -172,7 +172,7 @@ penyakit_data = {
         "alias": "Canine Scabies (Kudis Sarkoptik / Demodex)",
         "emoji": "🐶🪳",
 
-        "deskripsi": "Mange pada anjing adalah infeksi kulit akibat tungau parasit mikroskopis. Bentuk utamanya adalah scabies sarkoptik yang sangat menular serta demodex yang berkaitan dengan penurunan sistem imun.",
+        "deskripsi": "/Mange pada anjing adalah infeksi kulit akibat tungau parasit mikroskopis. Bentuk utamanya adalah scabies sarkoptik yang sangat menular serta demodex yang berkaitan dengan penurunan sistem imun.",
 
         "tags": [
             "🔴 Sangat Menular",
@@ -223,7 +223,7 @@ penyakit_data = {
 
         "gambar": "scabies.gif"
     }
-}
+},
 
     "malassezia": {
         "nama": "Infeksi Malassezia",
@@ -306,19 +306,68 @@ penyakit_data = {
 @app.route("/detail/<nama>")
 def detail(nama):
     data = penyakit_data.get(nama)
+
     if not data:
         abort(404)
 
     confidence = request.args.get("confidence")
     from_detect = request.args.get("from")
     species = request.args.get("species")
+    img = request.args.get("img")
+
+    # kalau data punya versi kucing & anjing
+    if isinstance(data, dict) and "kucing" in data and "anjing" in data:
+
+        # dari halaman detect → pilih sesuai species
+        if species == "cat":
+            data = data["kucing"]
+        elif species == "dog":
+            data = data["anjing"]
+
+        # dari Wikipet → tampil versi umum
+        else:
+            data = {
+                "nama": nama.capitalize(),
+                "alias": f"{data['kucing']['alias']} / {data['anjing']['alias']}",
+                "emoji": "🐶🐱",
+                "deskripsi": data["kucing"]["deskripsi"],
+                "tags": ["🐶 Anjing", "🐱 Kucing"],
+
+                "gejala": {
+                    "anjing": data["anjing"]["gejala"],
+                    "kucing": data["kucing"]["gejala"]
+                },
+                "penyebab": {
+                    "anjing": data["anjing"]["penyebab"],
+                    "kucing": data["kucing"]["penyebab"]
+                },
+                "penularan": {
+                    "anjing": data["anjing"]["penularan"],
+                    "kucing": data["kucing"]["penularan"]
+                },
+                "pencegahan": {
+                    "anjing": data["anjing"]["pencegahan"],
+                    "kucing": data["kucing"]["pencegahan"]
+                },
+                "medis": {
+                    "anjing": data["anjing"]["medis"],
+                    "kucing": data["kucing"]["medis"]
+                },
+                "pengobatan": {
+                    "anjing": data["anjing"]["pengobatan"],
+                    "kucing": data["kucing"]["pengobatan"]
+                },
+
+                "gambar": data["kucing"]["gambar"]
+            }
 
     return render_template(
         "detail.html",
         data=data,
         confidence=confidence,
         from_detect=from_detect,
-        species=species
+        species=species,
+        img=img
     )
 
 # route lain tetap
