@@ -4,88 +4,226 @@ from flask import request  # tambahin ini di atas
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 penyakit_data = {
-    "ringworm": {
-        "nama": "Ringworm",
-        "alias": "Dermatofitosis (Kurap)",
-        "emoji": "🦠",
-        "deskripsi": " atau dermatofitosis adalah infeksi jamur pada kulit yang disebabkan oleh kelompok jamur dermatofit seperti Microsporum dan Trichophyton. Meskipun disebut 'worm', penyakit ini sama sekali bukan disebabkan oleh cacing. Jamur ini hidup dengan memakan keratin pada kulit, bulu, dan kuku, sehingga menyebabkan kerusakan jaringan dan munculnya lesi khas berbentuk lingkaran. Infeksi ini umum terjadi pada kucing dan anjing, terutama yang memiliki sistem imun lemah atau hidup di lingkungan lembap.",
-        "tags": ["🟡 Penularan: Tinggi", "⚠️ Zoonosis", "🐶 Kucing & Anjing", "⏳ 2–6 minggu"],
-        "gejala": [
-            "Pitak berbentuk lingkaran kemerahan",
-            "Kulit bersisik atau berkerak",
-            "Bulu rapuh dan mudah rontok",
-            "Kadang disertai gatal ringan"
-        ],
-        "penyebab": [
-            "Infeksi jamur dermatofit (Microsporum/Trichophyton)",
-            "Lingkungan lembap dan kurang higienis",
-            "Kontak dengan hewan terinfeksi",
-            "Sistem imun lemah"
-        ],
-        "penularan": [
-            "Kontak langsung dengan hewan terinfeksi",
-            "Spora jamur pada kandang, sisir, atau kain",
-            "Dapat menular ke manusia (zoonosis tinggi)"
-        ],
-        "pencegahan": [
-            "Menjaga kebersihan kandang dan lingkungan",
-            "Rutin menjemur hewan di bawah sinar matahari",
-            "Mengisolasi hewan yang terinfeksi",
-            "Membersihkan alat grooming secara rutin"
-        ],
-        "medis": [
-            "Lesi menyebar luas",
-            "Tidak membaik dalam 2–3 minggu",
-            "Infeksi terlihat parah atau bernanah"
-        ],
-        "pengobatan": [
-            "Salep antijamur (miconazole/ketoconazole)",
-            "Obat oral untuk kasus berat",
-            "Sampo khusus (lime sulfur/antifungal)",
-            "Perawatan rutin hingga sembuh total"
-        ],
-        "gambar": "info.jpg"
+     "ringworm": {
+        "kucing": {
+            "nama": "Ringworm pada Kucing",
+            "alias": "Dermatofitosis (Kurap Kucing)",
+            "emoji": "🐱🍄",
+            "deskripsi": "Ringworm adalah infeksi jamur superfisial pada kulit, bulu, dan cakar kucing yang paling sering disebabkan oleh jamur Microsporum canis. Jamur ini tidak disebabkan oleh cacing, melainkan hidup dengan memetabolisme protein keratin pada jaringan kulit mati, bulu, dan cakar kucing.",
+
+            "tags": ["🔴 Sangat Menular", "⚠️ Zoonosis Tinggi", "🐱 Kucing", "⏳ Terapi Jangka Panjang"],
+
+            "gejala": [
+                "Kebotakan atau pitak melingkar, terutama di area wajah, ujung telinga, kaki, dan ekor",
+                "Kulit kering dan bersisik halus yang tampak mirip abu rokok",
+                "Bulu di sekitar lesi menjadi rapuh, patah, dan sangat mudah rontok",
+                "Kucing berbulu panjang seperti ras Persia sering menjadi pembawa spora tanpa gejala (carrier)",
+                "Cakar menebal, rapuh, mengalami perubahan bentuk atau warna kusam jika kuku terinfeksi"
+            ],
+
+            "penyebab": [
+                "Infeksi jamur Microsporum canis",
+                "Kondisi lingkungan yang lembap, kotor, atau kebersihan kandang yang buruk",
+                "Sistem kekebalan tubuh yang lemah, terutama pada anak kucing atau kucing stres"
+            ],
+
+            "penularan": [
+                "Kontak fisik langsung dengan kucing sakit atau carrier",
+                "Kontak tidak langsung melalui kandang, sisir, kasur, karpet, atau sofa",
+                "Dapat menular sangat mudah ke manusia, khususnya anak-anak dan lansia"
+            ],
+
+            "pencegahan": [
+                "Menjaga kebersihan lingkungan rumah dan memastikan sirkulasi udara tidak lembap",
+                "Segera mengisolasi kucing yang sakit selama masa pengobatan",
+                "Membersihkan bulu rontok dengan vakum",
+                "Mendisinfeksi permukaan keras dengan larutan pemutih yang diencerkan"
+            ],
+
+            "medis": [
+                "Kebotakan menyebar cepat ke area tubuh lain",
+                "Muncul luka terbuka atau bernanah",
+                "Kucing lemas, kehilangan nafsu makan, atau terus menggaruk"
+            ],
+
+            "pengobatan": [
+                "Memandikan kucing dengan lime sulfur dip 2% atau sampo miconazole + chlorhexidine",
+                "Pemberian obat antijamur oral seperti Itraconazole dengan dosis dokter hewan",
+                "Pencukuran bulu pada kasus tertentu",
+                "Terapi harus dilanjutkan sampai hasil pemeriksaan negatif"
+            ],
+
+            "gambar": "info.jpg"
+        },
+
+        "anjing": {
+            "nama": "Ringworm pada Anjing",
+            "alias": "Dermatofitosis (Kurap Anjing)",
+            "emoji": "🐶🍄",
+            "deskripsi": "Ringworm adalah infeksi jamur superfisial pada kulit dan bulu anjing yang memicu peradangan pada folikel rambut. Berbeda dengan kucing, anjing hampir selalu menunjukkan gejala klinis yang jelas.",
+            "tags": ["🟠 Menular", "⚠️ Zoonosis", "🐶 Anjing", "🔥 Inflamasi Tinggi"],
+
+             "gejala": [
+                "Pitak melingkar dengan tepi kemerahan meradang",
+                "Bulu patah tepat di atas permukaan kulit",
+                "Muncul papula atau pustula",
+                "Bekas melingkar dengan pinggiran bersisik",
+                "Gatal bervariasi, bisa berat jika ada infeksi sekunder"
+            ],
+
+           "penyebab": [
+                "Infeksi dermatofit",
+                "Luka goresan kecil pada kulit",
+                "Usia muda, stres, penyakit penyerta"
+            ],
+
+            "penularan": [
+                "Kontak langsung dengan hewan terinfeksi",
+                "Kontak melalui sisir, handuk, kandang, tempat tidur",
+                "Dapat menular ke manusia"
+            ],
+
+            "pencegahan": [
+                "Membersihkan alat grooming rutin",
+                "Mengisolasi anjing terinfeksi",
+                "Menjaga kandang tetap kering",
+                "Mencuci alas tidur secara berkala"
+            ],
+
+            "medis": [
+                "Lesi meluas cepat",
+                "Bisul bernanah dalam",
+                "Anjing terus menggaruk atau tampak terganggu"
+            ],
+
+            "pengobatan": [
+                "Mandi dengan sampo antijamur",
+                "Obat oral seperti Itraconazole / Terbinafine sesuai resep dokter",
+                "Antibiotik jika ada infeksi sekunder",
+                "Pengobatan dilanjutkan sampai hasil evaluasi negatif"
+            ],
+
+            "gambar": "info.jpg"
+        }
     },
 
     "scabies": {
+    "kucing": {
         "nama": "Scabies",
-        "alias": "Kudis Sarcoptic",
-        "emoji": "🪳",
-        "deskripsi": " adalah penyakit kulit akibat infestasi tungau Sarcoptes scabiei yang menggali terowongan di bawah lapisan kulit. Aktivitas tungau ini memicu reaksi alergi hebat sehingga menyebabkan rasa gatal yang ekstrem. Penyakit ini sangat menular antar hewan dan dapat menular sementara ke manusia, meskipun tungau tidak berkembang biak di kulit manusia.",
-        "tags": ["🔴 Penularan: Tinggi", "⚠️ Zoonosis", "🐶 Anjing dominan"],
+        "jenis": "Kucing",
+        "alias": "Feline Scabies (Kudis Kucing / Kudis Notoedrik)",
+        "emoji": "🐱🦠",
+
+        "deskripsi": "Mange pada kucing adalah penyakit kulit parasitik yang disebabkan oleh infestasi tungau mikroskopis. Tungau hidup di permukaan kulit atau menggali terowongan pada lapisan kulit luar sehingga memicu peradangan dan rasa gatal yang sangat hebat.",
+
+        "tags": [
+            "🔴 Sangat Menular",
+            "⚠️ Zoonosis",
+            "🐱 Kucing",
+            "🔥 Gatal Ekstrem"
+        ],
+
         "gejala": [
-            "Gatal sangat hebat",
-            "Kerak tebal di telinga, siku, kaki",
-            "Kulit merah dan luka akibat garukan",
-            "Bulu rontok di area tertentu"
+            "Bulu rontok disertai keropeng tebal berwarna abu-abu kekuningan di wajah",
+            "Kotoran telinga hitam pekat menyerupai bubuk kopi",
+            "Kucing sering menggelengkan kepala atau mencakar telinga hingga berdarah",
+            "Gatal hebat disertai kebotakan luas"
         ],
+
         "penyebab": [
-            "Infestasi tungau Sarcoptes scabiei",
-            "Kontak dengan hewan terinfeksi",
-            "Lingkungan kotor"
+            "Infestasi tungau Notoedres cati",
+            "Infestasi tungau telinga Otodectes cynotis",
+            "Kontak fisik dengan kucing terinfeksi"
         ],
+
         "penularan": [
-            "Kontak langsung antar hewan",
-            "Bisa menular ke manusia (sementara)",
-            "Melalui tempat tidur atau kandang"
+            "Kontak langsung dengan kucing sakit",
+            "Melalui kasur, kandang, atau sisir",
+            "Dapat menular sementara ke manusia"
         ],
+
         "pencegahan": [
-            "Hindari kontak dengan hewan liar",
-            "Gunakan obat anti-parasit rutin",
-            "Jaga kebersihan kandang"
+            "Mengarantina kucing yang terinfeksi",
+            "Menggunakan obat antiparasit rutin",
+            "Mencuci perlengkapan dengan air panas",
+            "Menjaga kebersihan lingkungan"
         ],
+
         "medis": [
-            "Gatal ekstrem tidak terkendali",
-            "Luka terbuka akibat garukan",
-            "Hewan gelisah atau stres"
+            "Gatal ekstrem hingga melukai diri sendiri",
+            "Keropeng menyebar ke seluruh tubuh",
+            "Telinga bernanah atau berbau busuk",
+            "Kucing lesu dan tidak mau makan"
         ],
+
         "pengobatan": [
-            "Suntikan ivermectin",
-            "Obat spot-on anti tungau",
-            "Mandi sulfur"
+            "Mandi lime sulfur dip 2%",
+            "Obat tetes telinga khusus",
+            "Pembersihan liang telinga",
+            "Antibiotik bila ada infeksi sekunder"
         ],
+
         "gambar": "scabies.gif"
     },
+
+    "anjing": {
+        "nama": "Scabies",
+        "jenis": "Anjing",
+        "alias": "Canine Scabies (Kudis Sarkoptik / Demodex)",
+        "emoji": "🐶🪳",
+
+        "deskripsi": "Mange pada anjing adalah infeksi kulit akibat tungau parasit mikroskopis. Bentuk utamanya adalah scabies sarkoptik yang sangat menular serta demodex yang berkaitan dengan penurunan sistem imun.",
+
+        "tags": [
+            "🔴 Sangat Menular",
+            "⚠️ Risiko ke Manusia",
+            "🐶 Anjing",
+            "🚨 Butuh Penanganan Cepat"
+        ],
+
+        "gejala": [
+            "Gatal mendadak yang sangat hebat",
+            "Keropeng tebal dan kulit kemerahan",
+            "Kulit menebal dan menghitam pada kasus kronis",
+            "Kebotakan meluas",
+            "Bau tidak sedap akibat infeksi sekunder"
+        ],
+
+        "penyebab": [
+            "Infestasi tungau Sarcoptes scabiei",
+            "Demodex akibat gangguan imun",
+            "Kontak dengan anjing terinfeksi"
+        ],
+
+        "penularan": [
+            "Kontak langsung antar anjing",
+            "Melalui kandang atau tempat tidur",
+            "Dapat menyebabkan iritasi sementara pada manusia"
+        ],
+
+        "pencegahan": [
+            "Menghindari kontak dengan anjing liar",
+            "Obat antiparasit bulanan",
+            "Membersihkan kandang dan perlengkapan"
+        ],
+
+        "medis": [
+            "Kulit bernanah dan bengkak",
+            "Anjing demam atau lemas",
+            "Infeksi meluas cepat"
+        ],
+
+        "pengobatan": [
+            "Obat spot-on seperti Selamectin",
+            "Imidacloprid-Moxidectin",
+            "Antibiotik untuk infeksi sekunder",
+            "Mandi antiseboroik",
+            "Hindari ivermectin dosis tinggi pada ras sensitif"
+        ],
+
+        "gambar": "scabies.gif"
+    }
+}
 
     "malassezia": {
         "nama": "Infeksi Malassezia",
@@ -173,12 +311,14 @@ def detail(nama):
 
     confidence = request.args.get("confidence")
     from_detect = request.args.get("from")
+    species = request.args.get("species")
 
     return render_template(
         "detail.html",
         data=data,
         confidence=confidence,
-        from_detect=from_detect
+        from_detect=from_detect,
+        species=species
     )
 
 # route lain tetap

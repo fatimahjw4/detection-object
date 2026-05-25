@@ -313,25 +313,66 @@
             </div>
 
             <!-- PENGOBATAN -->
-            <div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
-                <div class="text-center mb-4">
-                <div class="section-badge">Pengobatan</div>
-                <h2 class="text-base font-bold">Perawatan</h2>
-                </div>
+<div class="card-hover bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full">
+    <div class="text-center mb-4">
+        <div class="section-badge">Pengobatan</div>
+        <h2 class="text-base font-bold">Perawatan</h2>
+    </div>
 
-                <div class="flex justify-between items-start gap-4">
-                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 leading-snug">
-                    {% for item in data.pengobatan %}
-                    <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
+    <div class="flex justify-between items-start gap-4 w-full">
 
-                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 text-xl">
-                    💊
-                </div>
-                </div>
-            </div>
-            </div>
+        <div class="flex-1 text-sm text-gray-700 leading-snug">
+
+{% if data.pengobatan is mapping %}
+
+    {% if species == "dog" %}
+        <ul class="list-disc list-inside space-y-1">
+            {% for item in data.pengobatan.anjing %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+
+    {% elif species == "cat" %}
+        <ul class="list-disc list-inside space-y-1">
+            {% for item in data.pengobatan.kucing %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <h3 class="font-semibold text-blue-600 mb-2">🐶 Penanganan pada Anjing</h3>
+        <ul class="list-disc list-inside space-y-1 mb-4">
+            {% for item in data.pengobatan.anjing %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3 class="font-semibold text-yellow-600 mb-2">🐱 Penanganan pada Kucing</h3>
+        <ul class="list-disc list-inside space-y-1">
+            {% for item in data.pengobatan.kucing %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+{% else %}
+    <ul class="list-disc list-inside space-y-1">
+        {% for item in data.pengobatan %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+</div>
+
+        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 text-xl shrink-0">
+            💊
+        </div>
+
+    </div>
+</div>
         </div>
         </section>
 

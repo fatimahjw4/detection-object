@@ -1,14 +1,8 @@
 # utils/disease_mapping.py
 
 disease_mapping = {
-    "scabies": {
-        "cat": "Scabies",
-        "dog": "Mange"
-    },
-    "ringworm": {
-        "cat": "Ringworm",
-        "dog": "Ringworm"
-    }
+    "scabies": "Scabies/Mange",
+    "ringworm": "Ringworm"
 }
 
 
@@ -33,6 +27,5 @@ def map_disease_label(model_label: str, species: str) -> str:
         return "Unknown"
 
     model_label = model_label.lower().strip()
-    species = normalize_species(species)
 
-    return disease_mapping.get(model_label, {}).get(species, model_label)
+    return disease_mapping.get(model_label, model_label)

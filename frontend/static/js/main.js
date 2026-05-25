@@ -10,6 +10,18 @@ function getSlug(label) {
   return "ringworm";
 }
 
+function normalizeDisplayLabel(label) {
+  if (!label) return label;
+
+  const lower = label.toLowerCase();
+
+  if (lower.includes("scabies") || lower.includes("mange")) {
+    return "Scabies/Mange";
+  }
+
+  return label;
+}
+
 // ================= PILIH HEWAN =================
 window.choosePet = function (pet) {
   selectedSpecies = pet;
@@ -90,84 +102,86 @@ window.onload = function () {
 
   // ================= DRAW BOX (PREVIEW) =================
   function drawDetections(detections) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const scaleX = canvas.width / preview.naturalWidth;
-    const scaleY = canvas.height / preview.naturalHeight;
+  const scaleX = canvas.width / preview.naturalWidth;
+  const scaleY = canvas.height / preview.naturalHeight;
 
-    detections.forEach((det) => {
-      let { x1, y1, x2, y2 } = det.bbox;
+  detections.forEach((det) => {
+    let { x1, y1, x2, y2 } = det.bbox;
 
-      x1 *= scaleX;
-      x2 *= scaleX;
-      y1 *= scaleY;
-      y2 *= scaleY;
+    x1 *= scaleX;
+    x2 *= scaleX;
+    y1 *= scaleY;
+    y2 *= scaleY;
 
-      const width = x2 - x1;
-      const height = y2 - y1;
+    const width = x2 - x1;
+    const height = y2 - y1;
 
-      const color = getBBoxColor(det.display_label || det.label);
+    const displayLabel = normalizeDisplayLabel(det.display_label || det.label);
+    const color = getBBoxColor(displayLabel);
 
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 3;
-      ctx.strokeRect(x1, y1, width, height);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(x1, y1, width, height);
 
-      ctx.fillStyle = color;
-      ctx.fillRect(x1, y1 - 20, 140, 20);
+    ctx.fillStyle = color;
+    ctx.fillRect(x1, y1 - 20, 160, 20);
 
-      ctx.fillStyle = "white";
-      ctx.font = "14px Arial";
-      ctx.fillText(
-        `${det.display_label || det.label} ${(det.confidence * 100).toFixed(1)}%`,
-        x1 + 5,
-        y1 - 5
-      );
-    });
-  }
+    ctx.fillStyle = "white";
+    ctx.font = "14px Arial";
+    ctx.fillText(
+      `${displayLabel} ${(det.confidence * 100).toFixed(1)}%`,
+      x1 + 5,
+      y1 - 5
+    );
+  });
+}
 
   // ================= DRAW BOX (RESULT - FIX UTAMA) =================
-  function drawDetectionsOnResult(detections) {
-    const resultCanvas = document.getElementById("resultCanvas");
-    const resultImage = document.getElementById("resultImage");
-    const rctx = resultCanvas.getContext("2d");
+ function drawDetectionsOnResult(detections) {
+  const resultCanvas = document.getElementById("resultCanvas");
+  const resultImage = document.getElementById("resultImage");
+  const rctx = resultCanvas.getContext("2d");
 
-    resultCanvas.width = resultImage.clientWidth;
-    resultCanvas.height = resultImage.clientHeight;
+  resultCanvas.width = resultImage.clientWidth;
+  resultCanvas.height = resultImage.clientHeight;
 
-    const scaleX = resultCanvas.width / resultImage.naturalWidth;
-    const scaleY = resultCanvas.height / resultImage.naturalHeight;
+  const scaleX = resultCanvas.width / resultImage.naturalWidth;
+  const scaleY = resultCanvas.height / resultImage.naturalHeight;
 
-    rctx.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
+  rctx.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
 
-    detections.forEach((det) => {
-      let { x1, y1, x2, y2 } = det.bbox;
+  detections.forEach((det) => {
+    let { x1, y1, x2, y2 } = det.bbox;
 
-      x1 *= scaleX;
-      x2 *= scaleX;
-      y1 *= scaleY;
-      y2 *= scaleY;
+    x1 *= scaleX;
+    x2 *= scaleX;
+    y1 *= scaleY;
+    y2 *= scaleY;
 
-      const width = x2 - x1;
-      const height = y2 - y1;
+    const width = x2 - x1;
+    const height = y2 - y1;
 
-      const color = getBBoxColor(det.display_label || det.label);
+    const displayLabel = normalizeDisplayLabel(det.display_label || det.label);
+    const color = getBBoxColor(displayLabel);
 
-      rctx.strokeStyle = color;
-      rctx.lineWidth = 3;
-      rctx.strokeRect(x1, y1, width, height);
+    rctx.strokeStyle = color;
+    rctx.lineWidth = 3;
+    rctx.strokeRect(x1, y1, width, height);
 
-      rctx.fillStyle = color;
-      rctx.fillRect(x1, y1 - 20, 140, 20);
+    rctx.fillStyle = color;
+    rctx.fillRect(x1, y1 - 20, 160, 20);
 
-      rctx.fillStyle = "white";
-      rctx.font = "14px Arial";
-      rctx.fillText(
-        `${det.display_label || det.label} ${(det.confidence * 100).toFixed(1)}%`,
-        x1 + 5,
-        y1 - 5
-      );
-    });
-  }
+    rctx.fillStyle = "white";
+    rctx.font = "14px Arial";
+    rctx.fillText(
+      `${displayLabel} ${(det.confidence * 100).toFixed(1)}%`,
+      x1 + 5,
+      y1 - 5
+    );
+  });
+}
 
   // ================= ANALYZE =================
   window.analyzeImage = async function () {
@@ -231,7 +245,7 @@ window.onload = function () {
 
       drawDetections(data.detections);
 
-      const label = det.display_label || det.label;
+      const label = normalizeDisplayLabel(det.display_label || det.label);
       const slug = getSlug(label);
       const colorClass = getColor(label);
       const description = getDescription(label);
@@ -263,7 +277,7 @@ window.onload = function () {
       const readMoreBtn = document.getElementById("readMoreBtn");
 
       readMoreBtn.href =
-        `/detail/${slug}?from=detect&confidence=${(det.confidence * 100).toFixed(1)}`;
+        `/detail/${slug}?from=detect&species=${selectedSpecies}&confidence=${(det.confidence * 100).toFixed(1)}`;
 
     } catch (err) {
       loading.classList.add("hidden");
@@ -303,7 +317,7 @@ window.onload = function () {
       return "Infeksi jamur yang menyebabkan bercak melingkar dan kerontokan bulu.";
     }
     if (label.toLowerCase().includes("scabies") || label.toLowerCase().includes("mange")) {
-      return "Penyakit kulit yang disebabkan oleh tungau, yang memicu rasa gatal dan iritasi.";
+     return "Scabies/Mange adalah penyakit kulit akibat infestasi tungau yang menyebabkan gatal, iritasi, kerontokan bulu, dan peradangan pada kulit.";
     }
     return "Deskripsi tidak tersedia.";
   }
