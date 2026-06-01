@@ -2,6 +2,7 @@
 let selectedSpecies = null;
 let selectedFile = null;
 let lastDetections = [];
+let cameraStream = null;
 
 function getSlug(label) {
   if (label.toLowerCase().includes("ringworm")) return "ringworm";
@@ -41,10 +42,23 @@ window.goBack = function () {
 
   document.getElementById("preview").classList.add("hidden");
   document.getElementById("uploadBox").classList.remove("hidden");
-  document.getElementById("changeBtn").classList.add("hidden");
+  document.getElementById("cameraBtn").classList.remove("hidden"); // <-- tambahin
+  document.getElementById("preview").classList.add("hidden");
+  document.getElementById("preview").src = "";
+
+  document.getElementById("afterState").classList.add("hidden");
+  document.getElementById("beforeState").classList.remove("hidden");
+
   document.getElementById("result").innerHTML = "";
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(track => track.stop());
+    cameraStream = null;
+  }
+
+  document.getElementById("cameraContainer").classList.add("hidden");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 window.onload = function () {
@@ -56,6 +70,88 @@ window.onload = function () {
   const ctx = canvas.getContext("2d");
   const uploadBox = document.getElementById("uploadBox");
   const changeBtn = document.getElementById("changeBtn");
+  const cameraBtn = document.getElementById("cameraBtn");
+  const cameraContainer = document.getElementById("cameraContainer");
+  const video = document.getElementById("video");
+
+  cameraBtn.addEventListener("click", async () => {
+
+  try {
+
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+    }
+
+    cameraStream =
+      await navigator.mediaDevices.getUserMedia({
+        video: true
+      });
+
+    video.srcObject = cameraStream;
+
+    cameraContainer.classList.remove("hidden");
+
+    uploadBox.classList.add("hidden");
+    cameraBtn.classList.add("hidden");
+
+  } catch (err) {
+    alert("Tidak dapat mengakses kamera");
+    console.error(err);
+  }
+
+});
+
+document
+  .getElementById("captureBtn")
+  .addEventListener("click", () => {
+
+    const tempCanvas =
+      document.createElement("canvas");
+
+    tempCanvas.width = video.videoWidth;
+    tempCanvas.height = video.videoHeight;
+
+    const tempCtx =
+      tempCanvas.getContext("2d");
+
+    tempCtx.drawImage(
+      video,
+      0,
+      0,
+      tempCanvas.width,
+      tempCanvas.height
+    );
+
+    tempCanvas.toBlob((blob) => {
+
+      selectedFile = new File(
+        [blob],
+        "capture.jpg",
+        { type: "image/jpeg" }
+      );
+
+      preview.src =
+        URL.createObjectURL(blob);
+
+      preview.classList.remove("hidden");
+
+      uploadBox.classList.add("hidden");
+      document .getElementById("previewActions") .classList.remove("hidden");
+
+      preview.onload = () => {
+        canvas.width = preview.clientWidth;
+        canvas.height = preview.clientHeight;
+      };
+
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+      }
+
+      cameraContainer.classList.add("hidden");
+    }, "image/jpeg");
+
+});
 
   // ================= RESIZE =================
   window.addEventListener("resize", () => {
@@ -74,13 +170,22 @@ window.onload = function () {
       preview.src = URL.createObjectURL(selectedFile);
       preview.classList.remove("hidden");
 
+      document .getElementById("previewActions") .classList.remove("hidden");
+
       uploadBox.classList.add("hidden");
-      changeBtn.classList.remove("hidden");
+      cameraBtn.classList.add("hidden");
 
       preview.onload = () => {
         canvas.width = preview.clientWidth;
         canvas.height = preview.clientHeight;
       };
+
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+      }
+
+      cameraContainer.classList.add("hidden");
     }
   });
 
@@ -90,14 +195,26 @@ window.onload = function () {
     input.value = "";
 
     preview.classList.add("hidden");
+    preview.src = "";
     uploadBox.classList.remove("hidden");
-    changeBtn.classList.add("hidden");
+    document.getElementById("previewActions").classList.add("hidden");
+    cameraBtn.classList.remove("hidden");
 
     document.getElementById("afterState").classList.add("hidden");
     document.getElementById("beforeState").classList.remove("hidden");
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     resultDiv.innerHTML = "";
+
+    if (cameraStream) {
+      cameraStream
+        .getTracks()
+        .forEach(track => track.stop());
+
+      cameraStream = null;
+    }
+
+    cameraContainer.classList.add("hidden");
   };
 
   // ================= DRAW BOX (PREVIEW) =================
@@ -346,7 +463,8 @@ window.onload = function () {
       preview.classList.remove("hidden");
 
       uploadBox.classList.add("hidden");
-      changeBtn.classList.remove("hidden");
+      document .getElementById("previewActions") .classList.remove("hidden");
+      cameraBtn.classList.add("hidden");
 
       preview.onload = () => {
         canvas.width = preview.clientWidth;
