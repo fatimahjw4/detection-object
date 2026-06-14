@@ -18,7 +18,9 @@ class YOLOService:
                 xyxy = box.xyxy[0].tolist()
 
                 raw_label = self.model.names[cls_id]
-
+                if raw_label == "hot-spot" and user_species == "cat":
+                    continue
+                
                 # 🔥 Mapping di sini
                 display_label = map_disease_label(raw_label, user_species)
 

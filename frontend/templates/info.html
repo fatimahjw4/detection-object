@@ -243,11 +243,10 @@
                 </div>
                 </div>
 
-                <!-- CONTENT 3 -->
                 <!-- CARD -->
-                <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group">
+                <!-- <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group"> -->
                 <!-- IMAGE -->
-                <img 
+                <!-- <img 
                     src="{{ url_for('static', filename='img/malassezia.jpg') }}" loading="lazy"
                     class="w-20 h-20 rounded-lg object-cover"
                 >
@@ -262,13 +261,13 @@
                     Baca Selengkapnya →
                     </a>
                 </div>
-                </div>
+                </div> -->
 
                 <!-- CONTENT 4 -->
                 <!-- CARD -->
-                <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group">
+                <!-- <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group"> -->
                 <!-- IMAGE -->
-                <img 
+                <!-- <img 
                     src="{{ url_for('static', filename='img/dermatitis.jpg') }}" loading="lazy"
                     class="w-20 h-20 rounded-lg object-cover"
                 >
@@ -283,7 +282,30 @@
                     Baca Selengkapnya →
                     </a>
                 </div>
-                </div>
+                </div> -->
+
+                <!-- CONTENT 5 -->
+                <div class="flex gap-4 border rounded-xl p-4 hover:shadow-md transition group">
+                  <img
+                      src="{{ url_for('static', filename='img/hotspot.jpg') }}"
+                      class="w-20 h-20 rounded-lg object-cover"
+                  >
+
+                  <div class="flex-1">
+                      <h4 class="font-semibold text-gray-800 group-hover:text-yellow-600 transition">
+                          Hot Spot (Acute Moist Dermatitis)
+                      </h4>
+
+                      <p class="text-sm text-gray-600 mt-1">
+                          Peradangan kulit akut pada anjing yang menyebabkan luka merah, basah, dan sangat gatal.
+                      </p>
+
+                      <a href="{{ url_for('detail', nama='hot-spot') }}"
+                      class="text-blue-600 text-sm mt-3 inline-block hover:underline">
+                          Baca Selengkapnya →
+                      </a>
+                  </div>
+              </div>
 
             </div>
 
@@ -375,7 +397,7 @@
               <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
                 <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
                 <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
-                <p class="text-gray-500 text-sm">Ringworm & Scabies</p>
+                <p class="text-gray-500 text-sm">Ringworm, Scabies & Hot Spot</p>
             </div>
 
             <!-- 3. MENU -->

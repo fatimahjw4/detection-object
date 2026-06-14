@@ -5,7 +5,7 @@ from services.yolo_service import YOLOService
 predict_bp = Blueprint('predict', __name__)
 
 UPLOAD_FOLDER = "static/uploads"
-yolo = YOLOService("models/best_final.pt")
+yolo = YOLOService("models/best_last.pt")
 
 
 @predict_bp.route("/predict", methods=["POST"])

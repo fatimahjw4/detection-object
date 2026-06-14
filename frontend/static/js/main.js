@@ -5,19 +5,27 @@ let lastDetections = [];
 let cameraStream = null;
 
 function getSlug(label) {
-  if (label.toLowerCase().includes("ringworm")) return "ringworm";
-  if (label.toLowerCase().includes("scabies") || label.toLowerCase().includes("mange")) return "scabies";
-  if (label.toLowerCase().includes("malassezia")) return "malassezia";
+  const lower = label.toLowerCase();
+  if (lower.includes("ringworm")) return "ringworm";
+  if (lower.includes("scabies") || lower.includes("mange")) {
+    return "scabies";
+  }
+  if (lower.includes("hot spot") || lower.includes("hot-spot")) {
+    return "hot-spot";
+  }
+  if (lower.includes("malassezia")) return "malassezia";
   return "ringworm";
 }
 
 function normalizeDisplayLabel(label) {
   if (!label) return label;
-
   const lower = label.toLowerCase();
 
   if (lower.includes("scabies") || lower.includes("mange")) {
     return "Scabies/Mange";
+  }
+  if (lower.includes("hot spot") || lower.includes("hot-spot")) {
+    return "Hot Spot";
   }
 
   return label;
@@ -403,42 +411,55 @@ document
     
   };
 
-  function getColor(label) {
-    if (label.toLowerCase().includes("ringworm")) {
+    function getColor(label) {
+    const lower = label.toLowerCase();
+
+    if (lower.includes("ringworm")) {
       return "bg-purple-100 text-purple-700";
     }
-    if (label.toLowerCase().includes("scabies") || label.toLowerCase().includes("mange")) {
+    if (lower.includes("scabies") || lower.includes("mange")) {
       return "bg-red-100 text-red-700";
     }
+    if (lower.includes("hot spot") || lower.includes("hot-spot")) {
+      return "bg-orange-100 text-orange-700";
+    }
+
     return "bg-gray-100 text-gray-700";
   }
 
   function getBBoxColor(label) {
-  if (!label) return "red";
+    if (!label) return "red";
 
-  const lower = label.toLowerCase();
+    const lower = label.toLowerCase();
 
-  if (lower.includes("ringworm")) {
-    return "#a855f7"; // ungu
+    if (lower.includes("ringworm")) {
+      return "#a855f7";
+    }
+    if (lower.includes("scabies") || lower.includes("mange")) {
+      return "#ef4444";
+    }
+    if (lower.includes("hot spot") || lower.includes("hot-spot")) {
+      return "#f59e0b";
+    }
+
+    return "red";
   }
 
-  if (lower.includes("scabies") || lower.includes("mange")) {
-    return "#ef4444"; // merah
-  }
+    function getDescription(label) {
+    const lower = label.toLowerCase();
 
-  return "red"; // default tetep merah kayak sekarang
-}
-
-  function getDescription(label) {
-    if (label.toLowerCase().includes("ringworm")) {
+    if (lower.includes("ringworm")) {
       return "Infeksi jamur yang menyebabkan bercak melingkar dan kerontokan bulu.";
     }
-    if (label.toLowerCase().includes("scabies") || label.toLowerCase().includes("mange")) {
-     return "Scabies/Mange adalah penyakit kulit akibat infestasi tungau yang menyebabkan gatal, iritasi, kerontokan bulu, dan peradangan pada kulit.";
+    if (lower.includes("scabies") || lower.includes("mange")) {
+      return "Scabies/Mange adalah penyakit kulit akibat infestasi tungau yang menyebabkan gatal, iritasi, kerontokan bulu, dan peradangan pada kulit.";
     }
+    if (lower.includes("hot spot") || lower.includes("hot-spot")) {
+      return "Hot Spot adalah peradangan kulit akut pada anjing yang menyebabkan area kulit merah, lembap, terasa gatal, dan dapat meluas dengan cepat.";
+    }
+
     return "Deskripsi tidak tersedia.";
   }
-
   // DRAG & DROP
   uploadBox.addEventListener("dragover", (e) => {
     e.preventDefault();

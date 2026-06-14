@@ -2,7 +2,8 @@
 
 disease_mapping = {
     "scabies": "Scabies/Mange",
-    "ringworm": "Ringworm"
+    "ringworm": "Ringworm",
+    "hot-spot": "Hot Spot"
 }
 
 

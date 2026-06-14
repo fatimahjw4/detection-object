@@ -323,12 +323,12 @@
           </h2>
 
           <!-- Cards -->
-      <div class="detect-grid max-w-3xl mx-auto grid md:grid-cols-2 gap-8">
+      <div class="detect-grid max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
 
         <!-- Card 1 -->
-        <div class="detect-card bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
+        <div class="detect-card bg-white shadow-sm hover:shadow-md transition p-5 border border-gray-100 hover:-translate-y-1">
           
-          <div class="detect-image h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
+          <div class="detect-image h-36 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
             <img src="{{ url_for('static', filename='img/ringworm.jpg') }}"class="w-full h-full object-cover">
           </div>
 
@@ -343,15 +343,32 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="detect-grid bg-white shadow-sm hover:shadow-md transition p-6 border border-gray-100 hover:-translate-y-1">
+        <div class="detect-card bg-white shadow-sm hover:shadow-md transition p-5 border border-gray-100 hover:-translate-y-1">
           
-          <div class="detect-image h-40 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
+          <div class="detect-image h-36 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
             <img src="{{ url_for('static', filename='img/scabies.gif') }}"class="w-full h-full object-cover">
           </div>
 
-          <h3 class="text-lg font-bold mb-2">Scabies (Mange pada Anjing)</h3>
+          <h3 class="text-lg font-bold mb-2">Scabies/Mange</h3>
           <p class="text-gray-600 text-sm mb-3">
             Penyakit kulit yang disebabkan oleh tungau, menimbulkan rasa gatal dan iritasi.
+          </p>
+
+          <span class="text-xs font-semibold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full">
+            Terdeteksi AI
+          </span>
+        </div>
+
+         <!-- Card 3 -->
+        <div class="detect-card bg-white shadow-sm hover:shadow-md transition p-5 border border-gray-100 hover:-translate-y-1">
+          
+          <div class="detect-image h-36 w-full mb-4 rounded-xl overflow-hidden bg-gray-100">
+            <img src="{{ url_for('static', filename='img/hotspot.jpg') }}"class="w-full h-full object-cover">
+          </div>
+
+          <h3 class="text-lg font-bold mb-2">Hot Spot</h3>
+          <p class="text-gray-600 text-sm mb-3">
+            Peradangan kulit akut pada anjing yang menyebabkan luka merah, basah, dan sangat gatal.
           </p>
 
           <span class="text-xs font-semibold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full">
@@ -517,7 +534,7 @@
               <h4 class="font-semibold text-gray-900 mb-3">Info Deteksi</h4>
                 <p class="text-gray-500 text-sm mb-2">Deteksi Penyakit Kulit</p>
                 <p class="text-gray-500 text-sm mb-2">Anjing & Kucing</p>
-                <p class="text-gray-500 text-sm">Ringworm & Scabies</p>
+                <p class="text-gray-500 text-sm">Ringworm, Scabies & Hot Spot</p>
             </div>
 
             <!-- 3. MENU -->
