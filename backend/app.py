@@ -5,6 +5,8 @@ import os
 
 app = Flask(__name__)
 
+app.register_blueprint(predict_bp)
+
 # 🔥FIX CORS DI SINI
 CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -12,11 +14,9 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-app.register_blueprint(predict_bp)
-
 @app.route("/")
 def health():
     return {"status": "API running 🚀"}
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", debug=True, port=5000)

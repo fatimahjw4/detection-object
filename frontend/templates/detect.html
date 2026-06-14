@@ -304,38 +304,69 @@
   </div>
 
   <!-- PREVIEW KAMERA -->
-  <div id="cameraContainer" class="hidden mt-6 text-center">
+<div id="cameraContainer" class="hidden mt-6 text-center">
+
+  <!-- WRAPPER VIDEO -->
+  <div class="relative inline-block w-full">
 
     <video id="video"
       autoplay
       playsinline
-      class="w-full max-h-[350px] rounded-xl border bg-black">
+      class="w-full h-[350px] object-cover rounded-xl border">
     </video>
 
-    <button id="captureBtn"
-  type="button"
-  class="mt-4 px-6 py-2.5 border-2 border-yellow-400 rounded-xl
-  text-yellow-500 font-semibold hover:bg-yellow-50
-  flex items-center gap-2 mx-auto transition">
+    <!-- TOMBOL SWITCH KAMERA -->
+    <button id="switchCameraBtn"
+        type="button"
+        class="absolute top-3 right-3
+        w-11 h-11
+        rounded-full
+        bg-black/40 backdrop-blur-sm
+        border border-white/20
+        flex items-center justify-center
+        shadow-md transition">
 
-  <svg xmlns="http://www.w3.org/2000/svg"
-    class="w-5 h-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
 
-    <path stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M3 7h4l2-2h6l2 2h4v12H3V7z"/>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4m14-2v2a4 4 0 01-4 4H3"/>
+        </svg>
 
-    <circle cx="12" cy="13" r="4"/>
-  </svg>
-
-  Ambil Foto
-</button>
+      </button>
 
   </div>
+
+  <button id="captureBtn"
+    type="button"
+    class="mt-4 px-6 py-2.5 border-2 border-yellow-400 rounded-xl
+    text-yellow-500 font-semibold hover:bg-yellow-50
+    flex items-center gap-2 mx-auto transition">
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+      class="w-5 h-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+
+      <path stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M3 7h4l2-2h6l2 2h4v12H3V7z"/>
+
+      <circle cx="12" cy="13" r="4"/>
+    </svg>
+
+    Ambil Foto
+  </button>
+
+</div>
 
   <!-- PREVIEW HASIL -->
   <div class="mt-6 flex flex-col items-center">

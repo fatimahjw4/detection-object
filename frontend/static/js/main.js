@@ -3,6 +3,7 @@ let selectedSpecies = null;
 let selectedFile = null;
 let lastDetections = [];
 let cameraStream = null;
+let currentFacingMode = "environment";
 
 function getSlug(label) {
   const lower = label.toLowerCase();
@@ -81,6 +82,16 @@ window.onload = function () {
   const cameraBtn = document.getElementById("cameraBtn");
   const cameraContainer = document.getElementById("cameraContainer");
   const video = document.getElementById("video");
+  const switchCameraBtn =
+  document.getElementById("switchCameraBtn");
+
+  switchCameraBtn?.addEventListener("click", async () => {
+
+  if (typeof window.switchCamera === "function") {
+    await window.switchCamera();
+  }
+
+});
 
   cameraBtn.addEventListener("click", async () => {
 
@@ -92,7 +103,9 @@ window.onload = function () {
 
     cameraStream =
       await navigator.mediaDevices.getUserMedia({
-        video: true
+        video: {
+          facingMode: currentFacingMode
+        }
       });
 
     video.srcObject = cameraStream;
@@ -106,6 +119,45 @@ window.onload = function () {
     alert("Tidak dapat mengakses kamera");
     console.error(err);
   }
+
+  window.switchCamera = async function () {
+
+  console.log("SWITCH CAMERA");
+
+  try {
+
+    currentFacingMode =
+      currentFacingMode === "environment"
+        ? "user"
+        : "environment";
+
+    console.log("Mode:", currentFacingMode);
+
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+    }
+
+    cameraStream =
+      await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: currentFacingMode
+        }
+      });
+
+    video.srcObject = cameraStream;
+        if (currentFacingMode === "user") {
+      video.style.transform = "scaleX(-1)";
+    } else {
+      video.style.transform = "scaleX(1)";
+    }
+
+  } catch (err) {
+
+    console.error(err);
+    alert("Gagal mengganti kamera");
+
+  }
+};
 
 });
 
@@ -122,13 +174,33 @@ document
     const tempCtx =
       tempCanvas.getContext("2d");
 
-    tempCtx.drawImage(
-      video,
-      0,
-      0,
-      tempCanvas.width,
-      tempCanvas.height
-    );
+    if (currentFacingMode === "user") {
+
+      tempCtx.save();
+
+      tempCtx.scale(-1, 1);
+
+      tempCtx.drawImage(
+        video,
+        -tempCanvas.width,
+        0,
+        tempCanvas.width,
+        tempCanvas.height
+      );
+
+      tempCtx.restore();
+
+    } else {
+
+      tempCtx.drawImage(
+        video,
+        0,
+        0,
+        tempCanvas.width,
+        tempCanvas.height
+      );
+
+    }
 
     tempCanvas.toBlob((blob) => {
 
@@ -144,7 +216,9 @@ document
       preview.classList.remove("hidden");
 
       uploadBox.classList.add("hidden");
-      document .getElementById("previewActions") .classList.remove("hidden");
+      document
+        .getElementById("previewActions")
+        .classList.remove("hidden");
 
       preview.onload = () => {
         canvas.width = preview.clientWidth;
@@ -157,6 +231,7 @@ document
       }
 
       cameraContainer.classList.add("hidden");
+
     }, "image/jpeg");
 
 });
@@ -327,7 +402,7 @@ document
     formData.append("species", selectedSpecies);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/predict", {
+      const response = await fetch("http://10.31.51.86:5000/predict", {
         method: "POST",
         body: formData,
       });
