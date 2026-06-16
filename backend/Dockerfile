@@ -18,4 +18,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Jalankan gunicorn dengan shell agar $PORT terbaca sebagai angka
-CMD ["sh", "-c", "gunicorn --workers 1 --timeout 120 --bind 0.0.0.0:$PORT app:app"]
+# Mengganti $PORT dengan 8080 secara langsung
+CMD ["gunicorn", "--workers", "1", "--timeout", "120", "--bind", "0.0.0.0:8080", "app:app"]
