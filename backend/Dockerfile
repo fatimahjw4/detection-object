@@ -18,4 +18,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Jalankan Gunicorn
-CMD ["gunicorn", "--workers", "1", "--timeout", "120", "--bind", "0.0.0.0:8080", "app:app"]
+CMD sh -c "gunicorn --workers 1 --timeout 120 --bind 0.0.0.0:${PORT:-8080} app:app"
