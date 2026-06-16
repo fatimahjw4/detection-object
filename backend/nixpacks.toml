@@ -2,9 +2,10 @@
 nixPkgs = [
   "libGL",
   "libglvnd",
-  "glib",
-  "xorg.libX11",
-  "xorg.libXext",
-  "libxkbcommon",
-  "fontconfig"
+  "glib"
+]
+
+[phases.build]
+cmds = [
+  "apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0"
 ]
