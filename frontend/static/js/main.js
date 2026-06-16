@@ -402,7 +402,7 @@ document
     formData.append("species", selectedSpecies);
 
     try {
-      const response = await fetch("http://10.31.51.86:5000/predict", {
+      const response = await fetch("https://detection-api.up.railway.app/predict", {
         method: "POST",
         body: formData,
       });
