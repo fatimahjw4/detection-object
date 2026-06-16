@@ -18,6 +18,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy sisa file aplikasi
 COPY . .
 
-# Jalankan Gunicorn
-# Jalankan gunicorn dengan script shell kecil untuk membaca environment variable
+# Jalankan gunicorn dengan shell agar $PORT terbaca sebagai angka
+# Mengganti $PORT dengan 8080 secara langsung
 CMD ["gunicorn", "--workers", "1", "--timeout", "120", "--bind", "0.0.0.0:8080", "app:app"]
