@@ -1,9 +1,10 @@
 # Gunakan base image yang sudah mendukung Python
 FROM python:3.11-slim
 
-# Install library sistem yang dibutuhkan OpenCV agar libGL.so.1 ada
+# Install library sistem yang dibutuhkan OpenCV
+# Kita gunakan 'libgl1' sebagai pengganti 'libgl1-mesa-glx'
 RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
