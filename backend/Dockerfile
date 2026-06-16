@@ -17,5 +17,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy sisa file aplikasi
 COPY . .
 
-# Jalankan Gunicorn
-CMD sh -c "gunicorn --workers 1 --timeout 120 --bind 0.0.0.0:${PORT:-8080} app:app"
+# Jalankan gunicorn dengan shell agar $PORT terbaca sebagai angka
+CMD ["sh", "-c", "gunicorn --workers 1 --timeout 120 --bind 0.0.0.0:$PORT app:app"]
